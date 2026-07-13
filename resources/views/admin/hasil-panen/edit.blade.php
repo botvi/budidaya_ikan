@@ -1,0 +1,93 @@
+@extends('template-admin.layout')
+@section('title', 'Edit Hasil Panen')
+
+@section('content')
+<div class="pc-content">
+ <div class="page-header">
+ <div class="page-block">
+ <div class="row align-items-center">
+ <div class="col-md-12">
+ <ul class="breadcrumb">
+ <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+ <li class="breadcrumb-item"><a href="{{ route('hasil-panen.index') }}">Hasil Panen</a></li>
+ <li class="breadcrumb-item active">Edit</li>
+ </ul>
+ </div>
+ <div class="col-md-12"><h2 class="mb-0" style="color:#14532d;font-weight:800;"> Edit Hasil Panen</h2></div>
+ </div>
+ </div>
+ </div>
+
+ <div class="row justify-content-center">
+ <div class="col-lg-8">
+ <div class="card" style="border-radius:20px;border:none;box-shadow:0 4px 24px rgba(0,0,0,.08);">
+ <div class="card-header" style="background:linear-gradient(135deg,#b45309,#d97706);border-radius:20px 20px 0 0;padding:20px 28px;">
+ <h5 style="color:white;margin:0;font-weight:700;"> Edit Data Panen</h5>
+ </div>
+ <div class="card-body p-4">
+ @if($errors->any())
+ <div class="alert alert-danger" style="border-radius:12px;"><ul class="mb-0">@foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul></div>
+ @endif
+
+ <form action="{{ route('hasil-panen.update', $hasilPanen) }}" method="POST">
+ @csrf @method('PUT')
+ <div class="row g-3">
+ <div class="col-md-6">
+ <label class="form-label fw-600">Kolam <span class="text-danger">*</span></label>
+ <select name="kolam_id" class="form-select" style="border-radius:10px;">
+ @foreach($kolamList as $k)
+ <option value="{{ $k->id }}" {{ old('kolam_id', $hasilPanen->kolam_id) == $k->id ? 'selected' : '' }}>{{ $k->nama_kolam }} ({{ $k->pembudidaya->nama ?? '' }})</option>
+ @endforeach
+ </select>
+ </div>
+ <div class="col-md-6">
+ <label class="form-label fw-600">Jenis Ikan <span class="text-danger">*</span></label>
+ <select name="jenis_ikan_id" class="form-select" style="border-radius:10px;">
+ @foreach($jenisIkanList as $ikan)
+ <option value="{{ $ikan->id }}" {{ old('jenis_ikan_id', $hasilPanen->jenis_ikan_id) == $ikan->id ? 'selected' : '' }}>{{ $ikan->nama_ikan }}</option>
+ @endforeach
+ </select>
+ </div>
+ <div class="col-md-4">
+ <label class="form-label fw-600">Tanggal Panen <span class="text-danger">*</span></label>
+ <input type="date" name="tanggal_panen" value="{{ old('tanggal_panen', $hasilPanen->tanggal_panen->format('Y-m-d')) }}" class="form-control" style="border-radius:10px;">
+ </div>
+ <div class="col-md-4">
+ <label class="form-label fw-600">Bobot Total (kg)</label>
+ <input type="number" step="0.01" name="bobot_kg" id="bobot_kg" value="{{ old('bobot_kg', $hasilPanen->bobot_kg) }}" class="form-control" min="0" style="border-radius:10px;" oninput="hitungTotal()">
+ </div>
+ <div class="col-md-4">
+ <label class="form-label fw-600">Jumlah (Ekor)</label>
+ <input type="number" name="jumlah_ekor" value="{{ old('jumlah_ekor', $hasilPanen->jumlah_ekor) }}" class="form-control" min="0" style="border-radius:10px;">
+ </div>
+ <div class="col-md-6">
+ <label class="form-label fw-600">Harga per Kg (Rp)</label>
+ <input type="number" name="harga_per_kg" id="harga_per_kg" value="{{ old('harga_per_kg', $hasilPanen->harga_per_kg) }}" class="form-control" min="0" style="border-radius:10px;" oninput="hitungTotal()">
+ </div>
+ <div class="col-md-6">
+ <label class="form-label fw-600">Total Pendapatan (Rp)</label>
+ <input type="number" name="total_pendapatan" id="total_pendapatan" value="{{ old('total_pendapatan', $hasilPanen->total_pendapatan) }}" class="form-control" style="border-radius:10px;background:#f9fafb;" readonly>
+ </div>
+ <div class="col-12">
+ <label class="form-label fw-600">Keterangan</label>
+ <textarea name="keterangan" rows="2" class="form-control" style="border-radius:10px;">{{ old('keterangan', $hasilPanen->keterangan) }}</textarea>
+ </div>
+ </div>
+ <div class="d-flex gap-2 mt-4">
+ <button type="submit" class="btn" style="background:linear-gradient(135deg,#d97706,#b45309);color:white;border:none;border-radius:10px;padding:10px 28px;font-weight:600;"> Perbarui</button>
+ <a href="{{ route('hasil-panen.index') }}" class="btn" style="background:#f3f4f6;color:#374151;border-radius:10px;padding:10px 28px;">Batal</a>
+ </div>
+ </form>
+ </div>
+ </div>
+ </div>
+ </div>
+</div>
+<script>
+function hitungTotal() {
+ const bobot = parseFloat(document.getElementById('bobot_kg').value) || 0;
+ const harga = parseFloat(document.getElementById('harga_per_kg').value) || 0;
+ document.getElementById('total_pendapatan').value = (bobot * harga).toFixed(0);
+}
+</script>
+@endsection

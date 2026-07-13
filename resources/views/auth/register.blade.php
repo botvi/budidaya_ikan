@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -60,85 +60,85 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 <div class="orb o1"></div><div class="orb o2"></div>
 
 <div class="card">
-    <div class="brand">
-        {{-- <img src="{{ asset('env/logo.png') }}" alt="MTs Nurul Islam Gunung Toar" class="brand-logo"> --}}
-        <div class="brand-name">MTs Nurul Islam Gunung Toar</div>
-        <div class="brand-sub">Buat akun untuk mulai belajar!</div>
-    </div>
+ <div class="brand">
+ {{-- <img src="{{ asset('env/logo.png') }}" alt="MTs Nurul Islam Gunung Toar" class="brand-logo"> --}}
+ <div class="brand-name">MTs Nurul Islam Gunung Toar</div>
+ <div class="brand-sub">Buat akun untuk mulai belajar!</div>
+ </div>
 
-    @if($errors->any())
-    <div class="alert-err">
-        <ul>@foreach($errors->all() as $e)<li><i class="fas fa-exclamation-circle"></i> {{ $e }}</li>@endforeach</ul>
-    </div>
-    @endif
+ @if($errors->any())
+ <div class="alert-err">
+ <ul>@foreach($errors->all() as $e)<li><i class="fas fa-exclamation-circle"></i> {{ $e }}</li>@endforeach</ul>
+ </div>
+ @endif
 
-    @include('sweetalert::alert')
+ @include('sweetalert::alert')
 
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+ <form method="POST" action="{{ route('register') }}">
+ @csrf
 
-        <div class="form-row">
-            <div class="form-group">
-                <label class="form-label"><i class="fas fa-user"></i> Nama Lengkap</label>
-                <input type="text" name="name" class="form-input" placeholder="Nama lengkap" value="{{ old('name') }}" required>
-                @error('name')<div class="form-err">{{ $message }}</div>@enderror
-            </div>
-            <div class="form-group">
-                <label class="form-label"><i class="fas fa-at"></i> Username</label>
-                <input type="text" name="username" class="form-input" placeholder="Username unik" value="{{ old('username') }}" required>
-                @error('username')<div class="form-err">{{ $message }}</div>@enderror
-            </div>
-        </div>
+ <div class="form-row">
+ <div class="form-group">
+ <label class="form-label"><i class="fas fa-user"></i> Nama Lengkap</label>
+ <input type="text" name="name" class="form-input" placeholder="Nama lengkap" value="{{ old('name') }}" required>
+ @error('name')<div class="form-err">{{ $message }}</div>@enderror
+ </div>
+ <div class="form-group">
+ <label class="form-label"><i class="fas fa-at"></i> Username</label>
+ <input type="text" name="username" class="form-input" placeholder="Username unik" value="{{ old('username') }}" required>
+ @error('username')<div class="form-err">{{ $message }}</div>@enderror
+ </div>
+ </div>
 
-        <div class="form-row">
-            <div class="form-group">
-                <label class="form-label"><i class="fas fa-envelope"></i> Email</label>
-                <input type="email" name="email" class="form-input" placeholder="Alamat email" value="{{ old('email') }}" required>
-                @error('email')<div class="form-err">{{ $message }}</div>@enderror
-            </div>
-            <div class="form-group">
-                <label class="form-label"><i class="fab fa-whatsapp"></i> No. WhatsApp</label>
-                <input type="tel" name="no_wa" class="form-input" placeholder="08xxxxxxxxx" value="{{ old('no_wa') }}" required>
-                @error('no_wa')<div class="form-err">{{ $message }}</div>@enderror
-            </div>
-        </div>
+ <div class="form-row">
+ <div class="form-group">
+ <label class="form-label"><i class="fas fa-envelope"></i> Email</label>
+ <input type="email" name="email" class="form-input" placeholder="Alamat email" value="{{ old('email') }}" required>
+ @error('email')<div class="form-err">{{ $message }}</div>@enderror
+ </div>
+ <div class="form-group">
+ <label class="form-label"><i class="fab fa-whatsapp"></i> No. WhatsApp</label>
+ <input type="tel" name="no_wa" class="form-input" placeholder="08xxxxxxxxx" value="{{ old('no_wa') }}" required>
+ @error('no_wa')<div class="form-err">{{ $message }}</div>@enderror
+ </div>
+ </div>
 
-        <div class="form-row">
-            <div class="form-group">
-                <label class="form-label"><i class="fas fa-lock"></i> Password</label>
-                <div class="pw-wrap">
-                    <input type="password" name="password" id="pw1" class="form-input" placeholder="Min. 6 karakter" required>
-                    <button type="button" class="pw-toggle" onclick="togglePw('pw1','i1')"><i id="i1" class="fas fa-eye"></i></button>
-                </div>
-                @error('password')<div class="form-err">{{ $message }}</div>@enderror
-            </div>
-            <div class="form-group">
-                <label class="form-label"><i class="fas fa-shield-alt"></i> Konfirmasi</label>
-                <div class="pw-wrap">
-                    <input type="password" name="password_confirmation" id="pw2" class="form-input" placeholder="Ulangi password" required>
-                    <button type="button" class="pw-toggle" onclick="togglePw('pw2','i2')"><i id="i2" class="fas fa-eye"></i></button>
-                </div>
-            </div>
-        </div>
+ <div class="form-row">
+ <div class="form-group">
+ <label class="form-label"><i class="fas fa-lock"></i> Password</label>
+ <div class="pw-wrap">
+ <input type="password" name="password" id="pw1" class="form-input" placeholder="Min. 6 karakter" required>
+ <button type="button" class="pw-toggle" onclick="togglePw('pw1','i1')"><i id="i1" class="fas fa-eye"></i></button>
+ </div>
+ @error('password')<div class="form-err">{{ $message }}</div>@enderror
+ </div>
+ <div class="form-group">
+ <label class="form-label"><i class="fas fa-shield-alt"></i> Konfirmasi</label>
+ <div class="pw-wrap">
+ <input type="password" name="password_confirmation" id="pw2" class="form-input" placeholder="Ulangi password" required>
+ <button type="button" class="pw-toggle" onclick="togglePw('pw2','i2')"><i id="i2" class="fas fa-eye"></i></button>
+ </div>
+ </div>
+ </div>
 
-        <div class="check-row">
-            <input type="checkbox" id="terms" name="agree-terms" required>
-            <label for="terms">Saya setuju dengan <a href="#">Syarat & Ketentuan</a> dan <a href="#">Kebijakan Privasi</a> MTs Nurul Islam Gunung Toar</label>
-        </div>
+ <div class="check-row">
+ <input type="checkbox" id="terms" name="agree-terms" required>
+ <label for="terms">Saya setuju dengan <a href="#">Syarat & Ketentuan</a> dan <a href="#">Kebijakan Privasi</a> MTs Nurul Islam Gunung Toar</label>
+ </div>
 
-        <button type="submit" class="btn-reg"><i class="fas fa-rocket"></i> &nbsp; DAFTAR SEKARANG</button>
-    </form>
+ <button type="submit" class="btn-reg"><i class="fas fa-rocket"></i> &nbsp; DAFTAR SEKARANG</button>
+ </form>
 
-    <hr class="divider">
-    <div class="footer-link">Sudah punya akun? <a href="{{ route('login') }}">Masuk sekarang</a></div>
+ <hr class="divider">
+ <div class="footer-link">Sudah punya akun? <a href="{{ route('login') }}">Masuk sekarang</a></div>
 </div>
 
 <script>
 function togglePw(id, iconId){
-    var p=document.getElementById(id);
-    var i=document.getElementById(iconId);
-    p.type=p.type==='password'?'text':'password';
-    i.className=p.type==='password'?'fas fa-eye':'fas fa-eye-slash';
+ var p=document.getElementById(id);
+ var i=document.getElementById(iconId);
+ p.type=p.type==='password'?'text':'password';
+ i.className=p.type==='password'?'fas fa-eye':'fas fa-eye-slash';
 }
 </script>
 </body>

@@ -3,100 +3,68 @@
 
 @section('content')
 <div class="pc-content">
-    <div class="page-header">
-        <div class="page-block">
-            <div class="row align-items-center">
-                <div class="col-md-12">
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Manajemen User</a></li>
-                        <li class="breadcrumb-item active">Tambah User</li>
-                    </ul>
-                </div>
-                <div class="col-md-12">
-                    <h2 class="mb-0" style="color: #064e3b; font-weight: 800;"><i class="fa fa-plus me-1"></i> Tambah User Baru</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Formulir Tambah Pengguna Sistem</h5>
-                </div>
-                <div class="card-body">
-                    <form method="POST" action="{{ route('users.store') }}">
-                        @csrf
-                        <div class="form-group mb-3">
-                            <label class="form-label" for="name">Nama Lengkap</label>
-                            <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Masukkan nama lengkap" required>
-                            @error('name')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="email">Alamat Email</label>
-                                    <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="Contoh: user@gmail.com" required>
-                                    @error('email')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="username">Username</label>
-                                    <input type="text" name="username" id="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" placeholder="Masukkan username" required>
-                                    @error('username')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="password">Password</label>
-                                    <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Minimal 6 karakter" required>
-                                    @error('password')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="password_confirmation">Konfirmasi Password</label>
-                                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Ulangi password" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label class="form-label" for="role">Pilih Hak Akses / Role</label>
-                            <select name="role" id="role" class="form-select @error('role') is-invalid @enderror" required>
-                                <option value="" disabled selected>-- Pilih Hak Akses --</option>
-                                <option value="admin" {{ old('role') === 'admin' ? 'selected' : '' }}>Admin (Pengelola Penuh)</option>
-                                <option value="pimpinan" {{ old('role') === 'pimpinan' ? 'selected' : '' }}>Pimpinan (View & Cetak Laporan)</option>
-                            </select>
-                            @error('role')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <hr>
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary">Simpan User</button>
-                            <a href="{{ route('users.index') }}" class="btn btn-outline-secondary">Batal</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+ <div class="page-header">
+ <div class="page-block">
+ <div class="row align-items-center">
+ <div class="col-md-12">
+ <ul class="breadcrumb">
+ <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+ <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Users</a></li>
+ <li class="breadcrumb-item active">Tambah</li>
+ </ul>
+ </div>
+ <div class="col-md-12"><h2 class="mb-0" style="color:#14532d;font-weight:800;"> Tambah User</h2></div>
+ </div>
+ </div>
+ </div>
+ <div class="row justify-content-center">
+ <div class="col-lg-6">
+ <div class="card" style="border-radius:20px;border:none;box-shadow:0 4px 24px rgba(0,0,0,.08);">
+ <div class="card-header" style="background:linear-gradient(135deg,#374151,#1f2937);border-radius:20px 20px 0 0;padding:20px 28px;">
+ <h5 style="color:white;margin:0;font-weight:700;"> Form User Baru</h5>
+ </div>
+ <div class="card-body p-4">
+ @if($errors->any())
+ <div class="alert alert-danger" style="border-radius:12px;"><ul class="mb-0">@foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul></div>
+ @endif
+ <form action="{{ route('users.store') }}" method="POST">
+ @csrf
+ <div class="row g-3">
+ <div class="col-12">
+ <label class="form-label fw-600">Nama <span class="text-danger">*</span></label>
+ <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" style="border-radius:10px;">
+ @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
+ </div>
+ <div class="col-12">
+ <label class="form-label fw-600">Email <span class="text-danger">*</span></label>
+ <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" style="border-radius:10px;">
+ @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
+ </div>
+ <div class="col-12">
+ <label class="form-label fw-600">Password <span class="text-danger">*</span></label>
+ <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" style="border-radius:10px;">
+ @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
+ </div>
+ <div class="col-12">
+ <label class="form-label fw-600">Konfirmasi Password</label>
+ <input type="password" name="password_confirmation" class="form-control" style="border-radius:10px;">
+ </div>
+ <div class="col-12">
+ <label class="form-label fw-600">Role <span class="text-danger">*</span></label>
+ <select name="role" class="form-select" style="border-radius:10px;">
+ <option value="operator" selected> Operator</option>
+ <option value="admin"> Admin</option>
+ </select>
+ </div>
+ </div>
+ <div class="d-flex gap-2 mt-4">
+ <button type="submit" class="btn" style="background:#374151;color:white;border:none;border-radius:10px;padding:10px 28px;font-weight:600;"> Simpan</button>
+ <a href="{{ route('users.index') }}" class="btn" style="background:#f3f4f6;color:#374151;border-radius:10px;padding:10px 28px;">Batal</a>
+ </div>
+ </form>
+ </div>
+ </div>
+ </div>
+ </div>
 </div>
 @endsection

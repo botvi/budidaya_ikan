@@ -3,72 +3,56 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Participant;
-use App\Models\Deposit;
-use App\Models\Withdrawal;
-use App\Models\ParticipantTarget;
-use App\Models\QurbanCategory;
-use App\Models\TransferSubmission;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Pembudidaya;
+use App\Models\JenisIkan;
+use App\Models\Kolam;
+use App\Models\HasilPanen;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $totalParticipants = Participant::where('status', 'aktif')->count();
-        $totalDeposits = Deposit::sum('jumlah');
-        $totalWithdrawals = Withdrawal::sum('jumlah');
-        $netBalance = $totalDeposits - $totalWithdrawals;
+        $totalPembudidaya = Pembudidaya::where('status', 'aktif')->count();
+        $totalKolam       = Kolam::count();
+        $totalKolamAktif  = Kolam::where('status_kolam', 'aktif')->count();
+        $totalJenisIkan   = JenisIkan::where('status', 'aktif')->count();
+        $totalPanenKg     = HasilPanen::sum('bobot_kg');
+        $totalPendapatan  = HasilPanen::sum('total_pendapatan');
+        $totalPanen       = HasilPanen::count();
 
-        // Progress tabungan peserta untuk target tahun ini (2026)
-        $targets = ParticipantTarget::with(['participant', 'category'])
-            ->where('tahun_qurban', date('Y'))
-            ->get()
-            ->map(function ($target) {
-                $totalPaid = Deposit::where('participant_id', $target->participant_id)->sum('jumlah') 
-                    - Withdrawal::where('participant_id', $target->participant_id)->sum('jumlah');
-                
-                $percent = $target->target_dana > 0 ? round(($totalPaid / $target->target_dana) * 100, 2) : 0;
-                $percent = min(max($percent, 0), 100); // clamp between 0% and 100%
+        // Panen per bulan (6 bulan terakhir)
+        $panenPerBulan = HasilPanen::selectRaw('MONTH(tanggal_panen) as bulan, YEAR(tanggal_panen) as tahun, SUM(bobot_kg) as total_kg, SUM(total_pendapatan) as total_pendapatan')
+            ->where('tanggal_panen', '>=', now()->subMonths(6))
+            ->groupByRaw('MONTH(tanggal_panen), YEAR(tanggal_panen)')
+            ->orderByRaw('YEAR(tanggal_panen), MONTH(tanggal_panen)')
+            ->get();
 
-                return (object)[
-                    'nama' => $target->participant->nama,
-                    'kategori' => $target->category->nama_kategori,
-                    'target' => $target->target_dana,
-                    'terkumpul' => $totalPaid,
-                    'persen' => $percent,
-                ];
-            });
+        // Kolam terbaru dengan koordinat
+        $kolamTerbaru = Kolam::with(['pembudidaya', 'jenisIkan'])
+            ->whereNotNull('latitude')
+            ->whereNotNull('longitude')
+            ->latest()
+            ->take(5)
+            ->get();
 
-        // Setoran bulanan tahun ini untuk grafik
-        $currentYear = date('Y');
-        $monthlyDeposits = Deposit::select(
-                DB::raw('MONTH(tanggal) as month'),
-                DB::raw('SUM(jumlah) as total')
-            )
-            ->whereYear('tanggal', $currentYear)
-            ->groupBy('month')
-            ->orderBy('month')
-            ->get()
-            ->pluck('total', 'month')
-            ->toArray();
+        // Top jenis ikan berdasarkan total panen
+        $topIkan = HasilPanen::with('jenisIkan')
+            ->selectRaw('jenis_ikan_id, SUM(bobot_kg) as total_kg, SUM(total_pendapatan) as total_pendapatan, COUNT(*) as jumlah_panen')
+            ->groupBy('jenis_ikan_id')
+            ->orderByDesc('total_kg')
+            ->take(5)
+            ->get();
 
-        $chartData = [];
-        for ($m = 1; $m <= 12; $m++) {
-            $chartData[] = isset($monthlyDeposits[$m]) ? (float)$monthlyDeposits[$m] : 0;
-        }
-
-        $pendingTransfers = TransferSubmission::where('status', 'pending')->count();
+        // Recent panen
+        $recentPanen = HasilPanen::with(['kolam.pembudidaya', 'jenisIkan'])
+            ->latest('tanggal_panen')
+            ->take(8)
+            ->get();
 
         return view('admin.dashboard', compact(
-            'totalParticipants',
-            'totalDeposits',
-            'totalWithdrawals',
-            'netBalance',
-            'targets',
-            'chartData',
-            'pendingTransfers'
+            'totalPembudidaya', 'totalKolam', 'totalKolamAktif', 'totalJenisIkan',
+            'totalPanenKg', 'totalPendapatan', 'totalPanen',
+            'panenPerBulan', 'kolamTerbaru', 'topIkan', 'recentPanen'
         ));
     }
 }

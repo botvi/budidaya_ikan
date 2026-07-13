@@ -3,278 +3,162 @@
 
 @section('content')
 <div class="pc-content">
-    <!-- [ Page Header ] start -->
-    <div class="page-header">
-        <div class="page-block">
-            <div class="row align-items-center">
-                <div class="col-md-12">
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard</li>
-                    </ul>
-                </div>
-                <div class="col-md-12">
-                    <h2 class="mb-0" style="color: #064e3b; font-weight: 800;"><i class="fa-solid fa-kaaba text-warning me-1"></i> Dashboard Pengelolaan Tabungan</h2>
-                    <p class="text-muted">Selamat datang di Panel Sistem Informasi Tabungan Qurban Masjid Nurul Iman Sungai Perupuk.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- [ Page Header ] end -->
+ <!-- Page Header -->
+ <div class="page-header">
+ <div class="page-block">
+ <div class="row align-items-center">
+ <div class="col-md-12">
+ <ul class="breadcrumb">
+ <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+ <li class="breadcrumb-item active">Dashboard</li>
+ </ul>
+ </div>
+ <div class="col-md-12">
+ <h2 class="mb-0" style="color:#14532d;font-weight:800;"> Dashboard Budidaya Ikan Air Tawar</h2>
+ <p class="text-muted">Sistem Informasi Budidaya Ikan Air Tawar (SIBUDI) — Provinsi Riau</p>
+ </div>
+ </div>
+ </div>
+ </div>
 
-    {{-- Alert Transfer Pending --}}
-    @if($pendingTransfers > 0)
-    <div style="background:linear-gradient(135deg,#d97706,#f59e0b);border-radius:14px;padding:14px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
-        <div style="display:flex;align-items:center;gap:12px;">
-            <span style="font-size:1.4em;color:white;"><i class="fa fa-spinner fa-spin"></i></span>
-            <div>
-                <div style="font-weight:700;color:#fff;font-size:.95em;">{{ $pendingTransfers }} Pengajuan Transfer Menunggu Konfirmasi</div>
-                <div style="font-size:.8em;color:rgba(255,255,255,.85);">Silakan verifikasi bukti transfer dari jamaah.</div>
-            </div>
-        </div>
-        <a href="{{ route('transfers.index') }}" style="background:rgba(255,255,255,.2);color:#fff;border:1.5px solid rgba(255,255,255,.4);padding:8px 18px;border-radius:10px;text-decoration:none;font-size:.85em;font-weight:600;white-space:nowrap;">
-            Lihat Sekarang →
-        </a>
-    </div>
-    @endif
+ <!-- Stat Cards -->
+ <div class="row g-3 mb-4">
+ <div class="col-6 col-xl-3">
+ <div class="card h-100" style="background:linear-gradient(135deg,#14532d,#166534);color:white;border:none;border-radius:16px;">
+ <div class="card-body">
+ <div class="d-flex align-items-center justify-content-between">
+ <div>
+ <div style="font-size:.78em;text-transform:uppercase;letter-spacing:.5px;opacity:.8;font-weight:600;">Pembudidaya Aktif</div>
+ <div style="font-size:2em;font-weight:800;line-height:1.1;">{{ $totalPembudidaya }}</div>
+ <div style="font-size:.75em;opacity:.7;">Orang terdaftar</div>
+ </div>
+ <div style="width:54px;height:54px;background:rgba(255,255,255,0.15);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6em;"></div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="col-6 col-xl-3">
+ <div class="card h-100" style="background:linear-gradient(135deg,#1d4ed8,#2563eb);color:white;border:none;border-radius:16px;">
+ <div class="card-body">
+ <div class="d-flex align-items-center justify-content-between">
+ <div>
+ <div style="font-size:.78em;text-transform:uppercase;letter-spacing:.5px;opacity:.8;font-weight:600;">Total Kolam</div>
+ <div style="font-size:2em;font-weight:800;line-height:1.1;">{{ $totalKolam }}</div>
+ <div style="font-size:.75em;opacity:.7;">{{ $totalKolamAktif }} aktif</div>
+ </div>
+ <div style="width:54px;height:54px;background:rgba(255,255,255,0.15);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6em;"></div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="col-6 col-xl-3">
+ <div class="card h-100" style="background:linear-gradient(135deg,#0891b2,#06b6d4);color:white;border:none;border-radius:16px;">
+ <div class="card-body">
+ <div class="d-flex align-items-center justify-content-between">
+ <div>
+ <div style="font-size:.78em;text-transform:uppercase;letter-spacing:.5px;opacity:.8;font-weight:600;">Jenis Ikan</div>
+ <div style="font-size:2em;font-weight:800;line-height:1.1;">{{ $totalJenisIkan }}</div>
+ <div style="font-size:.75em;opacity:.7;">Jenis dibudidayakan</div>
+ </div>
+ <div style="width:54px;height:54px;background:rgba(255,255,255,0.15);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6em;"></div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="col-6 col-xl-3">
+ <div class="card h-100" style="background:linear-gradient(135deg,#b45309,#d97706);color:white;border:none;border-radius:16px;">
+ <div class="card-body">
+ <div class="d-flex align-items-center justify-content-between">
+ <div>
+ <div style="font-size:.78em;text-transform:uppercase;letter-spacing:.5px;opacity:.8;font-weight:600;">Total Panen</div>
+ <div style="font-size:2em;font-weight:800;line-height:1.1;">{{ number_format($totalPanenKg, 0, ',', '.') }}</div>
+ <div style="font-size:.75em;opacity:.7;">Kg hasil panen</div>
+ </div>
+ <div style="width:54px;height:54px;background:rgba(255,255,255,0.15);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6em;"></div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
 
-    <!-- [ Main Cards ] start -->
-    <div class="row">
-        <!-- Card 1 -->
-        <div class="col-md-6 col-xl-3">
-            <div class="card bg-grd-primary" style="background: linear-gradient(135deg, #064e3b, #047857); color: white;">
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <h6 class="text-white text-opacity-75 mb-1" style="font-size:0.85em; text-transform:uppercase; letter-spacing:0.5px;">Peserta Aktif</h6>
-                            <h2 class="text-white mb-0" style="font-weight: 800;">{{ $totalParticipants }} <span style="font-size: 0.5em; font-weight: 400;">Orang</span></h2>
-                        </div>
-                        <div style="width: 50px; height: 50px; background: rgba(255,255,255,0.15); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: white;">
-                            <i class="fa fa-users"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Card 2 -->
-        <div class="col-md-6 col-xl-3">
-            <div class="card" style="border-left: 5px solid #10b981;">
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <h6 class="text-muted mb-1" style="font-size:0.85em; text-transform:uppercase; letter-spacing:0.5px;">Total Setoran</h6>
-                            <h3 class="mb-0 text-success" style="font-weight: 800;">Rp {{ number_format($totalDeposits, 0, ',', '.') }}</h3>
-                        </div>
-                        <div style="width: 50px; height: 50px; background: #ecfdf5; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: #10b981;">
-                            <i class="fa fa-money-bill-wave"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Card 3 -->
-        <div class="col-md-6 col-xl-3">
-            <div class="card" style="border-left: 5px solid #ef4444;">
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <h6 class="text-muted mb-1" style="font-size:0.85em; text-transform:uppercase; letter-spacing:0.5px;">Total Penarikan</h6>
-                            <h3 class="mb-0 text-danger" style="font-weight: 800;">Rp {{ number_format($totalWithdrawals, 0, ',', '.') }}</h3>
-                        </div>
-                        <div style="width: 50px; height: 50px; background: #fef2f2; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: #ef4444;">
-                            <i class="fa fa-hand-holding-usd"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Card 4 -->
-        <div class="col-md-6 col-xl-3">
-            <div class="card" style="border-left: 5px solid #f59e0b; background: #fffbeb;">
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <h6 class="text-muted mb-1" style="font-size:0.85em; text-transform:uppercase; letter-spacing:0.5px;">Saldo Keseluruhan</h6>
-                            <h3 class="mb-0 text-warning" style="font-weight: 800;">Rp {{ number_format($netBalance, 0, ',', '.') }}</h3>
-                        </div>
-                        <div style="width: 50px; height: 50px; background: #fff7ed; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5em; color: #f59e0b;">
-                            <i class="fa fa-wallet"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- [ Main Cards ] end -->
+ <!-- Total Pendapatan banner -->
+ <div style="background:linear-gradient(135deg,#064e3b,#0f766e);border-radius:16px;padding:20px 28px;margin-bottom:24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+ <div style="font-size:2em;"></div>
+ <div>
+ <div style="color:rgba(255,255,255,.7);font-size:.85em;font-weight:500;">Total Pendapatan Hasil Panen</div>
+ <div style="color:#fff;font-size:1.8em;font-weight:800;">Rp {{ number_format($totalPendapatan, 0, ',', '.') }}</div>
+ </div>
+ <div style="margin-left:auto;">
+ <a href="{{ route('hasil-panen.index') }}" style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.3);padding:10px 22px;border-radius:10px;text-decoration:none;font-size:.9em;font-weight:600;">Lihat Detail →</a>
+ </div>
+ </div>
 
-    <div class="row mt-3">
-        <!-- Chart Section -->
-        <div class="col-lg-8">
-            <div class="card">
-                <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5><i class="fa-solid fa-chart-line me-1"></i> Grafik Setoran Tabungan Qurban ({{ date('Y') }})</h5>
-                </div>
-                <div class="card-body">
-                    <div id="setoran-chart"></div>
-                </div>
-            </div>
-        </div>
+ <div class="row g-4">
+ <!-- Top Ikan -->
+ <div class="col-md-6">
+ <div class="card" style="border-radius:16px;border:none;box-shadow:0 4px 24px rgba(0,0,0,.06);">
+ <div class="card-header" style="background:transparent;border-bottom:1px solid #f0f0f0;padding:20px 24px;">
+ <h5 style="margin:0;font-weight:700;color:#1a1a2e;"> Top Jenis Ikan (Berdasarkan Panen)</h5>
+ </div>
+ <div class="card-body" style="padding:20px 24px;">
+ @forelse($topIkan as $item)
+ <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">
+ <div style="width:36px;height:36px;background:linear-gradient(135deg,#d1fae5,#a7f3d0);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1em;flex-shrink:0;"></div>
+ <div style="flex:1;">
+ <div style="font-weight:600;font-size:.9em;color:#1a1a2e;">{{ $item->jenisIkan->nama_ikan ?? '-' }}</div>
+ <div style="font-size:.78em;color:#6b7280;">{{ number_format($item->total_kg, 0, ',', '.') }} kg • {{ $item->jumlah_panen }}x panen</div>
+ </div>
+ <div style="font-size:.85em;font-weight:700;color:#16a34a;">Rp {{ number_format($item->total_pendapatan, 0, ',', '.') }}</div>
+ </div>
+ @empty
+ <p class="text-muted text-center">Belum ada data panen.</p>
+ @endforelse
+ </div>
+ </div>
+ </div>
 
-        <!-- Info / Quick action Section -->
-        <div class="col-lg-4">
-            <div class="card">
-                <div class="card-header">
-                    <h5><i class="fa-solid fa-bolt text-warning me-1"></i> Pintasan & Informasi</h5>
-                </div>
-                <div class="card-body">
-                    <div class="d-grid gap-2">
-                        @if (auth()->user()->role === 'admin')
-                        <a href="{{ route('participants.create') }}" class="btn btn-primary text-start">
-                            <i class="ti ti-user-plus me-2"></i> Pendaftaran Peserta Baru
-                        </a>
-                        <a href="{{ route('deposits.create') }}" class="btn btn-success text-start text-white">
-                            <i class="ti ti-plus me-2"></i> Input Setoran Tabungan
-                        </a>
-                        <a href="{{ route('withdrawals.create') }}" class="btn btn-danger text-start">
-                            <i class="ti ti-minus me-2"></i> Input Penarikan Dana
-                        </a>
-                        @endif
-                        <a href="{{ route('reports.financials') }}" class="btn btn-warning text-start">
-                            <i class="ti ti-file-text me-2"></i> Laporan Keuangan
-                        </a>
-                    </div>
-                    <hr>
-                    <div style="font-size:0.85em; line-height:1.6; color:#555;">
-                        <p class="mb-1"><strong>Panduan Cepat:</strong></p>
-                        <ul>
-                            <li>Daftarkan peserta di menu <strong>Data Peserta</strong></li>
-                            @if (auth()->user()->role === 'admin')
-                            <li>Set target tabungan di menu <strong>Target Qurban Peserta</strong></li>
-                            <li>Lakukan pencatatan transaksi melalui menu <strong>Setoran</strong> / <strong>Penarikan</strong></li>
-                            @endif
-                            <li>Pimpinan/Pengurus dapat memantau seluruh aktivitas di menu <strong>Laporan</strong></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+ <!-- Recent Panen -->
+ <div class="col-md-6">
+ <div class="card" style="border-radius:16px;border:none;box-shadow:0 4px 24px rgba(0,0,0,.06);">
+ <div class="card-header" style="background:transparent;border-bottom:1px solid #f0f0f0;padding:20px 24px;">
+ <h5 style="margin:0;font-weight:700;color:#1a1a2e;"> Panen Terbaru</h5>
+ </div>
+ <div class="card-body" style="padding:20px 24px;">
+ @forelse($recentPanen as $p)
+ <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #f8f8f8;">
+ <div style="width:38px;height:38px;background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2em;flex-shrink:0;"></div>
+ <div style="flex:1;">
+ <div style="font-weight:600;font-size:.88em;color:#1a1a2e;">{{ $p->kolam->nama_kolam ?? '-' }}</div>
+ <div style="font-size:.76em;color:#6b7280;">{{ $p->jenisIkan->nama_ikan ?? '-' }} • {{ $p->bobot_kg }} kg</div>
+ </div>
+ <div style="font-size:.78em;color:#16a34a;font-weight:600;text-align:right;">
+ {{ \Carbon\Carbon::parse($p->tanggal_panen)->format('d M Y') }}<br>
+ <span style="color:#9ca3af;">{{ $p->kolam->pembudidaya->nama ?? '' }}</span>
+ </div>
+ </div>
+ @empty
+ <p class="text-muted text-center">Belum ada data panen.</p>
+ @endforelse
+ </div>
+ </div>
+ </div>
+ </div>
 
-    <!-- Progress Table -->
-    <div class="row mt-3">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5><i class="fa-solid fa-bullseye me-1"></i> Progres Pencapaian Tabungan Qurban Jamaah (Tahun {{ date('Y') }})</h5>
-                </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <thead>
-                                <tr>
-                                    <th>Nama Peserta</th>
-                                    <th>Kategori</th>
-                                    <th>Target Dana</th>
-                                    <th>Dana Terkumpul</th>
-                                    <th style="width: 30%;">Progres / Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($targets as $target)
-                                <tr>
-                                    <td><strong>{{ $target->nama }}</strong></td>
-                                    <td>
-                                        <span class="badge bg-light-primary text-primary">{{ $target->kategori }}</span>
-                                    </td>
-                                    <td>Rp {{ number_format($target->target, 0, ',', '.') }}</td>
-                                    <td class="text-success">Rp {{ number_format($target->terkumpul, 0, ',', '.') }}</td>
-                                    <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <div class="progress flex-grow-1" style="height: 10px; background: #e2e8f0; border-radius: 5px; overflow: hidden;">
-                                                <div class="progress-bar" role="progressbar" 
-                                                     style="width: {{ $target->persen }}%; background: linear-gradient(135deg, #d97706, #f59e0b);" 
-                                                     aria-valuenow="{{ $target->persen }}" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            <span style="font-size: 0.8em; font-weight: 600; min-width: 45px;">{{ $target->persen }}%</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="5" class="text-center py-4 text-muted">Belum ada target qurban yang didaftarkan untuk tahun ini ({{ date('Y') }}).</td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+ <!-- Quick Actions -->
+ <div class="row g-3 mt-2">
+ <div class="col-12">
+ <div class="card" style="border-radius:16px;border:none;box-shadow:0 4px 24px rgba(0,0,0,.06);">
+ <div class="card-body" style="padding:24px;">
+ <h6 style="font-weight:700;margin-bottom:16px;color:#374151;"> Aksi Cepat</h6>
+ <div style="display:flex;gap:12px;flex-wrap:wrap;">
+ <a href="{{ route('pembudidaya.create') }}" style="display:flex;align-items:center;gap:8px;background:#f0fdf4;color:#15803d;padding:10px 18px;border-radius:10px;text-decoration:none;font-size:.88em;font-weight:600;border:1px solid #bbf7d0;transition:all .2s;"> Tambah Pembudidaya</a>
+ <a href="{{ route('kolam.create') }}" style="display:flex;align-items:center;gap:8px;background:#eff6ff;color:#1d4ed8;padding:10px 18px;border-radius:10px;text-decoration:none;font-size:.88em;font-weight:600;border:1px solid #bfdbfe;transition:all .2s;"> Tambah Kolam</a>
+ <a href="{{ route('hasil-panen.create') }}" style="display:flex;align-items:center;gap:8px;background:#fffbeb;color:#b45309;padding:10px 18px;border-radius:10px;text-decoration:none;font-size:.88em;font-weight:600;border:1px solid #fde68a;transition:all .2s;"> Input Hasil Panen</a>
+ <a href="{{ route('public.peta') }}" target="_blank" style="display:flex;align-items:center;gap:8px;background:#faf5ff;color:#7c3aed;padding:10px 18px;border-radius:10px;text-decoration:none;font-size:.88em;font-weight:600;border:1px solid #e9d5ff;transition:all .2s;"> Buka Peta GIS</a>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
 </div>
-@endsection
-
-@section('script')
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var options = {
-            chart: {
-                type: 'area',
-                height: 320,
-                toolbar: { show: false }
-            },
-            dataLabels: { enabled: false },
-            colors: ['#047857'],
-            stroke: {
-                curve: 'smooth',
-                width: 3
-            },
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    shadeIntensity: 1,
-                    opacityFrom: 0.45,
-                    opacityTo: 0.05,
-                    stops: [0, 90, 100]
-                }
-            },
-            series: [{
-                name: 'Total Setoran (Rp)',
-                data: @json($chartData)
-            }],
-            xaxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
-                labels: {
-                    style: {
-                        colors: '#6b7280',
-                        fontSize: '11px',
-                        fontFamily: 'Poppins'
-                    }
-                }
-            },
-            yaxis: {
-                labels: {
-                    formatter: function (val) {
-                        return "Rp " + new Intl.NumberFormat('id-ID').format(val);
-                    },
-                    style: {
-                        colors: '#6b7280',
-                        fontSize: '11px',
-                        fontFamily: 'Poppins'
-                    }
-                }
-            },
-            tooltip: {
-                y: {
-                    formatter: function (val) {
-                        return "Rp " + new Intl.NumberFormat('id-ID').format(val);
-                    }
-                }
-            }
-        };
-
-        var chart = new ApexCharts(document.querySelector("#setoran-chart"), options);
-        chart.render();
-    });
-</script>
 @endsection
