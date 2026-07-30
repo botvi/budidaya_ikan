@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\{
     JenisIkanController,
     KolamController,
     HasilPanenController,
+    LaporanController,
     UserController,
 };
 
@@ -69,6 +70,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Data Hasil Panen
     Route::resource('hasil-panen', HasilPanenController::class);
+
+    // Laporan
+    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
 
     // Admin-only routes
     Route::group(['middleware' => ['role:admin']], function () {

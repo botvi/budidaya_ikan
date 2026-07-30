@@ -58,6 +58,13 @@
  </a>
  </li>
 
+ <li class="pc-item {{ request()->routeIs('laporan.*') ? 'active' : '' }}">
+ <a href="{{ route('laporan.index') }}" class="pc-link">
+ <span class="pc-micon"><i class="ti ti-report" style="color:#f472b6;"></i></span>
+ <span class="pc-mtext">Laporan</span>
+ </a>
+ </li>
+
  {{-- Section GIS --}}
  <li class="pc-item pc-caption">
  <label>Informasi Publik</label>
