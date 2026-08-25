@@ -40,7 +40,7 @@
  </div>
  @endif
 
- <form action="{{ route('kolam.store') }}" method="POST" id="formKolam">
+ <form action="{{ route('kolam.store') }}" method="POST" id="formKolam" enctype="multipart/form-data">
  @csrf
  {{-- Hidden input geometry polygon --}}
  <input type="hidden" id="geometry_input" name="geometry" value="">
@@ -129,6 +129,10 @@
  <div class="col-12">
  <label class="form-label fw-600">Keterangan</label>
  <textarea name="keterangan" rows="2" class="form-control" style="border-radius:10px;">{{ old('keterangan') }}</textarea>
+ </div>
+ <div class="col-md-12">
+ <label class="form-label fw-600">Foto Kolam</label>
+ <input type="file" name="foto_kolam" class="form-control" style="border-radius:10px;" accept="image/*">
  </div>
  </div>
 

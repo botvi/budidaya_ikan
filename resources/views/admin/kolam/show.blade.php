@@ -49,6 +49,11 @@
  {{ $kolam->latitude }}, {{ $kolam->longitude }}
  @else <span style="color:#dc2626;">Belum ada</span> @endif
  </td></tr>
+ <tr><td style="color:#9ca3af;padding:7px 0;">Foto</td><td>
+ @if($kolam->foto_kolam)
+ <img src="{{ asset($kolam->foto_kolam) }}" alt="Foto Kolam" class="img-thumbnail" style="max-width: 150px;">
+ @else - @endif
+ </td></tr>
  </table>
 
  @if($kolam->hasCoordinates())

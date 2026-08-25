@@ -18,7 +18,7 @@
                 <li class="pc-h-item d-none d-md-inline-flex ms-3">
                     <div style="display:flex;align-items:center;gap:8px;">
                         <span style="font-size:0.72em;font-weight:700;color:#047857;text-transform:uppercase;letter-spacing:1px;">
-                            Sistem Informasi Budidaya Ikan Air Tawar
+                                
                         </span>
                     </div>
                 </li>

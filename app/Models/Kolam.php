@@ -14,7 +14,7 @@ class Kolam extends Model
     protected $fillable = [
         'pembudidaya_id', 'nama_kolam', 'jenis_kolam', 'luas_m2',
         'kedalaman_m', 'alamat_kolam', 'latitude', 'longitude',
-        'geometry', 'status_kolam', 'keterangan',
+        'geometry', 'status_kolam', 'keterangan', 'foto_kolam',
     ];
 
     protected $casts = [

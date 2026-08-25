@@ -118,7 +118,6 @@
  <th>Jenis Kolam</th>
  <th>Luas (m²)</th>
  <th>Kedalaman (m)</th>
- <th>Alamat</th>
  <th>Jenis Ikan</th>
  <th>Total Panen (kg)</th>
  <th>Status</th>
@@ -133,7 +132,6 @@
  <td>{{ ucfirst($k->jenis_kolam) }}</td>
  <td>{{ number_format($k->luas_m2, 1) }}</td>
  <td>{{ number_format($k->kedalaman_m, 1) }}</td>
- <td>{{ $k->alamat_kolam }}</td>
  <td>{{ $k->jenisIkan->pluck('nama_ikan')->join(', ') ?: '-' }}</td>
  <td>{{ number_format($k->hasilPanen->sum('bobot_kg'), 1) }}</td>
  <td>
@@ -165,8 +163,7 @@
  <th>Nama Ikan</th>
  <th>Nama Latin</th>
  <th>Umur Panen (hari)</th>
- <th>Jumlah Ditebar</th>
- <th>Jumlah Dipanen</th>
+
  <th>Status</th>
  </tr>
  </thead>
@@ -177,8 +174,7 @@
  <td style="font-weight:600;">{{ $j->nama_ikan }}</td>
  <td><i>{{ $j->nama_latin }}</i></td>
  <td>{{ $j->umur_panen_hari }}</td>
- <td class="text-center">{{ $j->ikan_kolam_count }}</td>
- <td class="text-center">{{ $j->hasil_panen_count }}</td>
+
  <td>
  <span class="badge {{ $j->status == 'aktif' ? 'badge-aktif' : 'badge-nonaktif' }}">{{ ucfirst($j->status) }}</span>
  </td>
@@ -280,8 +276,7 @@
  <th>Jenis Ikan</th>
  <th>Bobot (kg)</th>
  <th>Jumlah (ekor)</th>
- <th>Harga/kg</th>
- <th>Total Pendapatan</th>
+
  </tr>
  </thead>
  <tbody>
@@ -294,8 +289,7 @@
  <td>{{ $hp->jenisIkan->nama_ikan ?? '-' }}</td>
  <td style="font-weight:700;color:#15803d;">{{ number_format($hp->bobot_kg, 1) }}</td>
  <td>{{ number_format($hp->jumlah_ekor) }}</td>
- <td>Rp {{ number_format($hp->harga_per_kg, 0, ',', '.') }}</td>
- <td style="font-weight:700;color:#b45309;">Rp {{ number_format($hp->total_pendapatan, 0, ',', '.') }}</td>
+
  </tr>
  @empty
  <tr><td colspan="9" class="text-center py-5 text-muted">Belum ada data hasil panen.</td></tr>

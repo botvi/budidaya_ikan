@@ -77,7 +77,7 @@
  <th style="color:#6b7280;font-weight:600;border-bottom:1px solid #f0f0f0;padding:14px 12px;">Jenis Ikan</th>
  <th style="color:#6b7280;font-weight:600;border-bottom:1px solid #f0f0f0;padding:14px 12px;">Bobot (kg)</th>
  <th style="color:#6b7280;font-weight:600;border-bottom:1px solid #f0f0f0;padding:14px 12px;">Jumlah (ekor)</th>
- <th style="color:#6b7280;font-weight:600;border-bottom:1px solid #f0f0f0;padding:14px 12px;">Total Pendapatan</th>
+ <!-- <th style="color:#6b7280;font-weight:600;border-bottom:1px solid #f0f0f0;padding:14px 12px;">Total Pendapatan</th> -->
  <th style="color:#6b7280;font-weight:600;border-bottom:1px solid #f0f0f0;padding:14px 12px;">Aksi</th>
  </tr>
  </thead>
@@ -93,7 +93,7 @@
  </td>
  <td style="padding:14px 12px;font-weight:700;color:#15803d;">{{ number_format($hp->bobot_kg, 1) }} kg</td>
  <td style="padding:14px 12px;color:#374151;">{{ number_format($hp->jumlah_ekor) }} ekor</td>
- <td style="padding:14px 12px;font-weight:700;color:#b45309;">Rp {{ number_format($hp->total_pendapatan, 0, ',', '.') }}</td>
+ <!-- <td style="padding:14px 12px;font-weight:700;color:#b45309;">Rp {{ number_format($hp->total_pendapatan, 0, ',', '.') }}</td> -->
  <td style="padding:14px 12px;">
  <div class="d-flex gap-1">
  <a href="{{ route('hasil-panen.edit', $hp) }}" class="btn btn-sm" style="background:#fef3c7;color:#b45309;border-radius:8px;padding:5px 10px;"></a>

@@ -91,6 +91,7 @@ class PublicController extends Controller
                     'total_panen_kg' => $totalPanen,
                     'total_pendapatan'=> $totalPendapatan,
                     'detail_url'     => route('public.kolam.show', $k->id),
+                    'foto_kolam'     => $k->foto_kolam ? asset($k->foto_kolam) : null,
                     'polygon'        => $k->geometry, // GeoJSON polygon batas kolam
                 ],
             ];

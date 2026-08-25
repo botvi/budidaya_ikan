@@ -62,7 +62,15 @@ class KolamController extends Controller
             'longitude'      => 'nullable|numeric|between:-180,180',
             'status_kolam'   => 'required|in:aktif,tidak_aktif,perbaikan',
             'keterangan'     => 'nullable|string',
+            'foto_kolam'     => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
+
+        if ($request->hasFile('foto_kolam')) {
+            $file = $request->file('foto_kolam');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/kolam'), $filename);
+            $validated['foto_kolam'] = 'uploads/kolam/' . $filename;
+        }
 
         // Simpan geometry polygon GeoJSON jika ada
         if ($request->filled('geometry')) {
@@ -127,7 +135,19 @@ class KolamController extends Controller
             'longitude'      => 'nullable|numeric|between:-180,180',
             'status_kolam'   => 'required|in:aktif,tidak_aktif,perbaikan',
             'keterangan'     => 'nullable|string',
+            'foto_kolam'     => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
+
+        if ($request->hasFile('foto_kolam')) {
+            // Hapus foto lama jika ada
+            if ($kolam->foto_kolam && file_exists(public_path($kolam->foto_kolam))) {
+                unlink(public_path($kolam->foto_kolam));
+            }
+            $file = $request->file('foto_kolam');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/kolam'), $filename);
+            $validated['foto_kolam'] = 'uploads/kolam/' . $filename;
+        }
 
         // Simpan geometry polygon GeoJSON jika ada
         if ($request->filled('geometry')) {
