@@ -481,6 +481,24 @@ function buildPopupHtml(prop, color) {
 // ============================================================
 function showInfoSidebar(prop) {
     const color = prop.status_color || '#22c55e';
+
+    // Foto kolam section
+    let fotoHtml = '';
+    if (prop.foto_kolam) {
+        fotoHtml = `
+        <div style="margin:12px 0;border-radius:10px;overflow:hidden;border:2px solid rgba(255,255,255,.1);">
+            <img src="${prop.foto_kolam}" alt="Foto ${prop.nama_kolam}"
+                style="width:100%;max-height:180px;object-fit:cover;display:block;"
+                onerror="this.parentElement.innerHTML='<div style=\\'padding:12px;text-align:center;color:#64748b;font-size:.78em;\\'>Foto tidak dapat dimuat</div>'">
+        </div>`;
+    } else {
+        fotoHtml = `
+        <div style="margin:12px 0;background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.12);border-radius:10px;padding:14px;text-align:center;color:#64748b;font-size:.78em;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 6px;opacity:.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Belum ada foto
+        </div>`;
+    }
+
     document.getElementById('info-content').innerHTML = `
         <div class="info-header-card">
             <div style="margin-bottom:8px;">
@@ -489,6 +507,8 @@ function showInfoSidebar(prop) {
             <div style="font-weight:800;font-size:.95em;color:white;">${prop.nama_kolam}</div>
             <div style="font-size:.72em;color:rgba(255,255,255,.6);margin-top:3px;">${prop.alamat_kolam || ''}</div>
         </div>
+
+        ${fotoHtml}
 
         <div class="info-row"><span class="info-lbl">Pembudidaya</span><span class="info-val">${prop.pembudidaya || '-'}</span></div>
         <div class="info-row"><span class="info-lbl">Kontak</span><span class="info-val">${prop.pembudidaya_hp || '-'}</span></div>

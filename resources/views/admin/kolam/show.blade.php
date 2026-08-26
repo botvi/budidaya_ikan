@@ -50,9 +50,21 @@
  @else <span style="color:#dc2626;">Belum ada</span> @endif
  </td></tr>
  <tr><td style="color:#9ca3af;padding:7px 0;">Foto</td><td>
- @if($kolam->foto_kolam)
- <img src="{{ asset($kolam->foto_kolam) }}" alt="Foto Kolam" class="img-thumbnail" style="max-width: 150px;">
- @else - @endif
+  @if($kolam->foto_kolam)
+  <div style="margin-top:4px;">
+   <a href="{{ asset($kolam->foto_kolam) }}" target="_blank" title="Lihat foto ukuran penuh">
+    <img src="{{ asset($kolam->foto_kolam) }}" alt="Foto Kolam"
+     style="max-width:100%;max-height:200px;border-radius:10px;border:2px solid #bfdbfe;object-fit:cover;cursor:pointer;transition:transform .2s;"
+     onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+   </a>
+   <div style="font-size:.72em;color:#9ca3af;margin-top:4px;">Klik foto untuk lihat ukuran penuh</div>
+  </div>
+  @else
+  <div style="background:#f9fafb;border:1px dashed #d1d5db;border-radius:8px;padding:14px;text-align:center;color:#9ca3af;font-size:.8em;margin-top:4px;">
+   <i class="ti ti-camera" style="font-size:1.5em;display:block;margin-bottom:4px;"></i>
+   Belum ada foto
+  </div>
+  @endif
  </td></tr>
  </table>
 

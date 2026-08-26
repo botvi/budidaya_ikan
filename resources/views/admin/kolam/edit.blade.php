@@ -119,13 +119,58 @@
  <textarea name="keterangan" rows="2" class="form-control" style="border-radius:10px;">{{ old('keterangan', $kolam->keterangan) }}</textarea>
  </div>
  <div class="col-md-12">
- <label class="form-label fw-600">Foto Kolam</label>
- @if($kolam->foto_kolam)
- <div class="mb-2">
- <img src="{{ asset($kolam->foto_kolam) }}" alt="Foto Kolam" class="img-thumbnail" style="max-width: 200px;">
- </div>
- @endif
- <input type="file" name="foto_kolam" class="form-control" style="border-radius:10px;" accept="image/*">
+  <label class="form-label fw-600">Foto Kolam</label>
+  <div style="border:2px dashed #d1d5db;border-radius:12px;padding:16px;background:#fafafa;">
+
+   {{-- Foto Lama --}}
+   @if($kolam->foto_kolam)
+   <div id="foto_lama_wrap" style="margin-bottom:12px;">
+    <div style="font-size:.78em;font-weight:600;color:#374151;margin-bottom:6px;">Foto saat ini:</div>
+    <div style="position:relative;display:inline-block;">
+     <img id="foto_lama_img" src="{{ asset($kolam->foto_kolam) }}" alt="Foto Kolam"
+      style="max-width:100%;max-height:200px;border-radius:10px;border:2px solid #e5e7eb;object-fit:cover;">
+    </div>
+    <div style="margin-top:8px;">
+     <label style="display:flex;align-items:center;gap:8px;font-size:.82em;color:#dc2626;cursor:pointer;user-select:none;">
+      <input type="checkbox" id="chk_hapus_foto" name="hapus_foto" value="1"
+       onchange="toggleHapusFoto(this)" style="width:16px;height:16px;cursor:pointer;">
+      <span>Hapus foto ini</span>
+     </label>
+    </div>
+   </div>
+   @else
+   <div id="foto_placeholder_edit" style="text-align:center;color:#9ca3af;font-size:.8em;padding:8px 0 12px;">
+    <i class="ti ti-camera" style="font-size:1.6em;display:block;margin-bottom:4px;"></i>
+    Belum ada foto — klik untuk memilih gambar
+   </div>
+   @endif
+
+   {{-- Input file baru --}}
+   <input type="file" id="foto_kolam_input" name="foto_kolam"
+    class="form-control @error('foto_kolam') is-invalid @enderror"
+    style="border-radius:8px;" accept=".jpg,.jpeg,.png"
+    onchange="previewFotoKolam(this)">
+   @error('foto_kolam')<div class="invalid-feedback">{{ $message }}</div>@enderror
+   <div style="font-size:.75em;color:#9ca3af;margin-top:6px;">
+    <i class="ti ti-info-circle me-1"></i>Format: JPG, JPEG, PNG &bull; Ukuran maks: 2 MB
+    @if($kolam->foto_kolam)
+     &bull; Upload baru akan menggantikan foto lama.
+    @endif
+   </div>
+
+   {{-- Preview foto baru --}}
+   <div id="foto_preview_wrap" style="display:none;margin-top:12px;">
+    <div style="font-size:.78em;font-weight:600;color:#374151;margin-bottom:6px;">Preview Foto Baru:</div>
+    <div style="position:relative;display:inline-block;">
+     <img id="foto_preview" src="" alt="Preview"
+      style="max-width:100%;max-height:220px;border-radius:10px;border:2px solid #3b82f6;object-fit:cover;">
+     <button type="button" onclick="hapusPreviuFoto()" title="Batalkan pilihan"
+      style="position:absolute;top:-8px;right:-8px;width:24px;height:24px;background:#ef4444;color:white;border:none;border-radius:50%;font-size:.85em;cursor:pointer;display:flex;align-items:center;justify-content:center;">
+      &times;
+     </button>
+    </div>
+   </div>
+  </div>
  </div>
  </div>
 
@@ -493,6 +538,63 @@ function turf_area(geojson) {
  (2 + Math.sin(p1[1] * Math.PI / 180) + Math.sin(p2[1] * Math.PI / 180));
  }
  return Math.abs(area * R * R / 2);
+}
+</script>
+
+<script>
+// ============================================================
+// FOTO KOLAM — Preview, Validasi & Toggle Hapus
+// ============================================================
+function previewFotoKolam(input) {
+ const maxSize = 2 * 1024 * 1024;
+ const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+ const file = input.files[0];
+
+ if (!file) { resetFotoPreview(); return; }
+
+ if (!allowedTypes.includes(file.type)) {
+  alert('Format file tidak didukung. Gunakan JPG, JPEG, atau PNG.');
+  input.value = '';
+  resetFotoPreview();
+  return;
+ }
+
+ if (file.size > maxSize) {
+  alert('Ukuran file terlalu besar. Maksimal 2 MB.');
+  input.value = '';
+  resetFotoPreview();
+  return;
+ }
+
+ const reader = new FileReader();
+ reader.onload = function(e) {
+  document.getElementById('foto_preview').src = e.target.result;
+  document.getElementById('foto_preview_wrap').style.display = 'block';
+ };
+ reader.readAsDataURL(file);
+}
+
+function hapusPreviuFoto() {
+ document.getElementById('foto_kolam_input').value = '';
+ resetFotoPreview();
+}
+
+function resetFotoPreview() {
+ document.getElementById('foto_preview').src = '';
+ document.getElementById('foto_preview_wrap').style.display = 'none';
+}
+
+function toggleHapusFoto(chk) {
+ const wrap = document.getElementById('foto_lama_wrap');
+ if (!wrap) return;
+ const img = document.getElementById('foto_lama_img');
+ if (chk.checked) {
+  img.style.opacity = '0.3';
+  img.style.filter = 'grayscale(100%)';
+ } else {
+  img.style.opacity = '1';
+  img.style.filter = 'none';
+ }
 }
 </script>
 @endsection

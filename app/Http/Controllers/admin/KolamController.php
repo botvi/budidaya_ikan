@@ -147,6 +147,12 @@ class KolamController extends Controller
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('uploads/kolam'), $filename);
             $validated['foto_kolam'] = 'uploads/kolam/' . $filename;
+        } elseif ($request->has('hapus_foto') && $request->hapus_foto == '1') {
+            // Hapus foto tanpa upload baru
+            if ($kolam->foto_kolam && file_exists(public_path($kolam->foto_kolam))) {
+                unlink(public_path($kolam->foto_kolam));
+            }
+            $validated['foto_kolam'] = null;
         }
 
         // Simpan geometry polygon GeoJSON jika ada
