@@ -100,7 +100,8 @@ class KolamController extends Controller
                 'jenis_ikan_id' => $request->jenis_ikan_id,
                 'jumlah_benih'  => $request->jumlah_benih ?? 0,
                 'tanggal_tebar' => $request->tanggal_tebar,
-                'status'        => 'aktif',
+                'status'        => $request->status_ikan ?? 'aktif',
+                'catatan'       => $request->catatan_ikan,
             ]);
         }
 
@@ -111,7 +112,8 @@ class KolamController extends Controller
     public function show(Kolam $kolam)
     {
         $kolam->load(['pembudidaya', 'ikanKolam.jenisIkan', 'hasilPanen.jenisIkan']);
-        return view('admin.kolam.show', compact('kolam'));
+        $jenisIkanList = JenisIkan::where('status', 'aktif')->orderBy('nama_ikan')->get();
+        return view('admin.kolam.show', compact('kolam', 'jenisIkanList'));
     }
 
     public function edit(Kolam $kolam)

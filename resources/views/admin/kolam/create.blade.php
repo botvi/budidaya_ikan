@@ -117,15 +117,48 @@
  <option value="perbaikan">Perbaikan</option>
  </select>
  </div>
- <div class="col-md-6">
- <label class="form-label fw-600">Jenis Ikan Awal</label>
- <select name="jenis_ikan_id" class="form-select" style="border-radius:10px;">
+
+ {{-- Card Tebar Ikan Awal --}}
+ <div class="col-12">
+ <div style="background:#f8fafc;border-radius:14px;padding:16px;border:1px solid #e2e8f0;">
+ <div style="font-size:.86em;font-weight:700;color:#1e293b;margin-bottom:12px;display:flex;align-items:center;gap:6px;">
+ <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16s9-15 20-4C11 23 2 16 2 16z"/><circle cx="17" cy="10" r="1"/></svg>
+ Tebar Benih Ikan Awal (Opsional)
+ </div>
+ <div class="row g-3">
+ <div class="col-md-4">
+ <label class="form-label fw-600" style="font-size:.82em;">Jenis Ikan</label>
+ <select name="jenis_ikan_id" class="form-select form-select-sm" style="border-radius:8px;">
  <option value="">-- Tidak ada / Isi nanti --</option>
  @foreach($jenisIkanList as $ikan)
  <option value="{{ $ikan->id }}" {{ old('jenis_ikan_id') == $ikan->id ? 'selected' : '' }}>{{ $ikan->nama_ikan }}</option>
  @endforeach
  </select>
  </div>
+ <div class="col-md-3">
+ <label class="form-label fw-600" style="font-size:.82em;">Jumlah Benih (Ekor)</label>
+ <input type="number" name="jumlah_benih" value="{{ old('jumlah_benih') }}" class="form-control form-control-sm" placeholder="Contoh: 1000" min="0" style="border-radius:8px;">
+ </div>
+ <div class="col-md-3">
+ <label class="form-label fw-600" style="font-size:.82em;">Tanggal Tebar</label>
+ <input type="date" name="tanggal_tebar" value="{{ old('tanggal_tebar', date('Y-m-d')) }}" class="form-control form-control-sm" style="border-radius:8px;">
+ </div>
+ <div class="col-md-2">
+ <label class="form-label fw-600" style="font-size:.82em;">Status Ikan</label>
+ <select name="status_ikan" class="form-select form-select-sm" style="border-radius:8px;">
+ <option value="aktif" {{ old('status_ikan') == 'aktif' ? 'selected' : '' }}>Aktif</option>
+ <option value="panen" {{ old('status_ikan') == 'panen' ? 'selected' : '' }}>Panen</option>
+ <option value="gagal" {{ old('status_ikan') == 'gagal' ? 'selected' : '' }}>Gagal</option>
+ </select>
+ </div>
+ <div class="col-12">
+ <label class="form-label fw-600" style="font-size:.82em;">Catatan Benih / Ikan</label>
+ <input type="text" name="catatan_ikan" value="{{ old('catatan_ikan') }}" class="form-control form-control-sm" placeholder="Contoh: Benih unggul ukuran 5-7 cm" style="border-radius:8px;">
+ </div>
+ </div>
+ </div>
+ </div>
+
  <div class="col-12">
  <label class="form-label fw-600">Keterangan</label>
  <textarea name="keterangan" rows="2" class="form-control" style="border-radius:10px;">{{ old('keterangan') }}</textarea>

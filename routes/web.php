@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\{
     PembudidayaController,
     JenisIkanController,
     KolamController,
+    IkanKolamController,
     HasilPanenController,
     LaporanController,
     UserController,
@@ -67,6 +68,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Data Kolam
     Route::resource('kolam', KolamController::class);
+
+    // Data Ikan Kolam (Tebar Benih & Status Ikan)
+    Route::resource('ikan-kolam', IkanKolamController::class)->only(['store', 'update', 'destroy']);
 
     // Data Hasil Panen
     Route::resource('hasil-panen', HasilPanenController::class);

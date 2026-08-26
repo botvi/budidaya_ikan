@@ -349,8 +349,8 @@
                     <div class="ikan-name">{{ $ik->jenisIkan->nama_ikan ?? '-' }}</div>
                     <div class="ikan-meta">{{ number_format($ik->jumlah_benih) }} ekor &bull; Tebar: {{ $ik->tanggal_tebar?->format('d M Y') ?? '-' }}</div>
                 </div>
-                <span style="background:{{ $ik->status == 'aktif' ? 'rgba(22,163,74,.15)' : 'rgba(239,68,68,.15)' }};
-                    color:{{ $ik->status == 'aktif' ? '#22c55e' : '#f87171' }};
+                <span style="background:{{ $ik->status == 'aktif' ? 'rgba(22,163,74,.15)' : ($ik->status == 'panen' ? 'rgba(59,130,246,.15)' : 'rgba(239,68,68,.15)') }};
+                    color:{{ $ik->status == 'aktif' ? '#22c55e' : ($ik->status == 'panen' ? '#60a5fa' : '#f87171') }};
                     padding:3px 10px;border-radius:20px;font-size:.73em;font-weight:600;flex-shrink:0;">
                     {{ ucfirst($ik->status) }}
                 </span>
