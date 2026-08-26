@@ -13,7 +13,7 @@ class KolamController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Kolam::with(['pembudidaya', 'jenisIkan']);
+        $query = Kolam::with(['pembudidaya', 'jenisIkan', 'ikanKolam.jenisIkan']);
 
         if ($request->filled('search')) {
             $s = $request->search;

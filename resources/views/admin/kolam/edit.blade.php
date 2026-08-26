@@ -177,11 +177,68 @@
  <div class="d-flex gap-2 mt-4">
  <button type="submit" class="btn" style="background:linear-gradient(135deg,#d97706,#b45309);color:white;border:none;border-radius:10px;padding:10px 28px;font-weight:600;">
  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
- Perbarui
+ Perbarui Data Kolam
  </button>
  <a href="{{ route('kolam.index') }}" class="btn" style="background:#f3f4f6;color:#374151;border-radius:10px;padding:10px 28px;">Batal</a>
  </div>
  </form>
+ </div>
+ </div>
+
+ {{-- Card Kelola Ikan di Kolam Ini --}}
+ <div class="card mt-4" style="border-radius:16px;border:none;box-shadow:0 4px 24px rgba(0,0,0,.08);">
+ <div class="card-header" style="background:transparent;border-bottom:1px solid #f0f0f0;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+ <h6 style="margin:0;font-weight:700;color:#1e293b;display:flex;align-items:center;gap:6px;">
+ 🐟 Ikan di Kolam Ini ({{ $kolam->ikanKolam->count() }})
+ </h6>
+ <button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalTambahIkan" style="background:#dbeafe;color:#1d4ed8;padding:6px 14px;border-radius:8px;font-size:.82em;font-weight:600;border:none;">
+ + Tebar Ikan Baru
+ </button>
+ </div>
+ <div class="card-body p-3">
+ @forelse($kolam->ikanKolam as $ik)
+ <div style="background:#f9fafb;border-radius:12px;padding:12px;margin-bottom:8px;display:flex;gap:12px;align-items:center;border:1px solid #f1f5f9;">
+ <div style="width:38px;height:38px;background:#dbeafe;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1em;flex-shrink:0;">🐟</div>
+ <div style="flex:1;">
+ <div class="d-flex align-items-center gap-2">
+ <span style="font-weight:700;color:#1a1a2e;font-size:.92em;">{{ $ik->jenisIkan->nama_ikan ?? '-' }}</span>
+ <span style="background:{{ $ik->status == 'aktif' ? '#dcfce7' : ($ik->status == 'panen' ? '#dbeafe' : '#fee2e2') }};color:{{ $ik->status == 'aktif' ? '#15803d' : ($ik->status == 'panen' ? '#1d4ed8' : '#dc2626') }};padding:2px 8px;border-radius:20px;font-size:.7em;font-weight:700;text-transform:uppercase;">
+ {{ $ik->status == 'panen' ? 'Panen' : ($ik->status == 'aktif' ? 'Aktif' : 'Gagal') }}
+ </span>
+ </div>
+ <div style="font-size:.76em;color:#6b7280;margin-top:2px;">
+ <strong>{{ number_format($ik->jumlah_benih) }}</strong> ekor benih &bull; Tebar: {{ $ik->tanggal_tebar?->format('d M Y') ?? '-' }}
+ </div>
+ @if($ik->catatan)
+ <div style="font-size:.72em;color:#4b5563;margin-top:2px;">
+ 💬 {{ $ik->catatan }}
+ </div>
+ @endif
+ </div>
+ <div class="d-flex gap-1">
+ <button type="button" class="btn btn-sm" onclick="editIkan(this)"
+ data-id="{{ $ik->id }}"
+ data-jenis="{{ $ik->jenis_ikan_id }}"
+ data-jumlah="{{ $ik->jumlah_benih }}"
+ data-tanggal="{{ $ik->tanggal_tebar?->format('Y-m-d') ?? '' }}"
+ data-status="{{ $ik->status }}"
+ data-catatan="{{ $ik->catatan }}"
+ style="background:#fef3c7;color:#b45309;border-radius:8px;padding:4px 9px;" title="Edit Ikan">
+ ✏️
+ </button>
+ <form action="{{ route('ikan-kolam.destroy', $ik) }}" method="POST" onsubmit="return confirm('Hapus data ikan ini dari kolam?')">
+ @csrf @method('DELETE')
+ <button type="submit" class="btn btn-sm" style="background:#fee2e2;color:#dc2626;border-radius:8px;padding:4px 9px;border:none;" title="Hapus Ikan">
+ 🗑️
+ </button>
+ </form>
+ </div>
+ </div>
+ @empty
+ <div class="text-center py-3" style="color:#9ca3af;font-size:.84em;">
+ Belum ada ikan di kolam ini. Klik <strong>+ Tebar Ikan Baru</strong> untuk menambahkan.
+ </div>
+ @endforelse
  </div>
  </div>
  </div>
@@ -596,5 +653,139 @@ function toggleHapusFoto(chk) {
   img.style.filter = 'none';
  }
 }
+
+// ============================================================
+// MODAL EDIT IKAN KOLAM
+// ============================================================
+function editIkan(btn) {
+    const id = btn.getAttribute('data-id');
+    const jenis = btn.getAttribute('data-jenis');
+    const jumlah = btn.getAttribute('data-jumlah');
+    const tanggal = btn.getAttribute('data-tanggal');
+    const status = btn.getAttribute('data-status');
+    const catatan = btn.getAttribute('data-catatan') || '';
+
+    const form = document.getElementById('formEditIkan');
+    form.action = "{{ url('ikan-kolam') }}/" + id;
+
+    document.getElementById('edit_jenis_ikan_id').value = jenis;
+    document.getElementById('edit_jumlah_benih').value = jumlah;
+    document.getElementById('edit_tanggal_tebar').value = tanggal;
+    document.getElementById('edit_status').value = status;
+    document.getElementById('edit_catatan').value = catatan;
+
+    const modal = new bootstrap.Modal(document.getElementById('modalEditIkan'));
+    modal.show();
+}
 </script>
+
+<!-- Modal Tambah Ikan Kolam -->
+<div class="modal fade" id="modalTambahIkan" tabindex="-1" aria-labelledby="modalTambahIkanLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius:16px;border:none;box-shadow:0 10px 30px rgba(0,0,0,0.15);">
+            <form action="{{ route('ikan-kolam.store') }}" method="POST">
+                @csrf
+                <input type="hidden" name="kolam_id" value="{{ $kolam->id }}">
+                <div class="modal-header" style="border-bottom:1px solid #f1f5f9;padding:16px 20px;">
+                    <h5 class="modal-title fw-bold" id="modalTambahIkanLabel" style="color:#1e293b;font-size:1.05em;">
+                        🐟 Tambah / Tebar Ikan ke Kolam
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold" style="font-size:.85em;">Jenis Ikan <span class="text-danger">*</span></label>
+                        <select name="jenis_ikan_id" class="form-select" style="border-radius:8px;" required>
+                            <option value="">-- Pilih Jenis Ikan --</option>
+                            @foreach($jenisIkanList ?? [] as $ikan)
+                                <option value="{{ $ikan->id }}">{{ $ikan->nama_ikan }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold" style="font-size:.85em;">Jumlah Benih (Ekor) <span class="text-danger">*</span></label>
+                            <input type="number" name="jumlah_benih" class="form-control" placeholder="Contoh: 1000" min="1" required style="border-radius:8px;">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold" style="font-size:.85em;">Tanggal Tebar <span class="text-danger">*</span></label>
+                            <input type="date" name="tanggal_tebar" value="{{ date('Y-m-d') }}" class="form-control" required style="border-radius:8px;">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold" style="font-size:.85em;">Status <span class="text-danger">*</span></label>
+                        <select name="status" class="form-select" style="border-radius:8px;" required>
+                            <option value="aktif" selected>Aktif (Sedang dibudidaya)</option>
+                            <option value="panen">Panen (Sudah dipanen)</option>
+                            <option value="gagal">Gagal (Mati / Penyakit / Cuaca)</option>
+                        </select>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label fw-semibold" style="font-size:.85em;">Catatan (Opsional)</label>
+                        <textarea name="catatan" rows="2" class="form-control" placeholder="Contoh: Benih ukuran 6 cm, kondisi sehat" style="border-radius:8px;"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border-top:1px solid #f1f5f9;padding:12px 20px;">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" style="border-radius:8px;">Batal</button>
+                    <button type="submit" class="btn btn-primary btn-sm" style="border-radius:8px;background:#2563eb;">Simpan Data Ikan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit Ikan Kolam -->
+<div class="modal fade" id="modalEditIkan" tabindex="-1" aria-labelledby="modalEditIkanLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius:16px;border:none;box-shadow:0 10px 30px rgba(0,0,0,0.15);">
+            <form id="formEditIkan" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-header" style="border-bottom:1px solid #f1f5f9;padding:16px 20px;">
+                    <h5 class="modal-title fw-bold" id="modalEditIkanLabel" style="color:#1e293b;font-size:1.05em;">
+                        ✏️ Edit Data Ikan Kolam
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold" style="font-size:.85em;">Jenis Ikan <span class="text-danger">*</span></label>
+                        <select name="jenis_ikan_id" id="edit_jenis_ikan_id" class="form-select" style="border-radius:8px;" required>
+                            <option value="">-- Pilih Jenis Ikan --</option>
+                            @foreach($jenisIkanList ?? [] as $ikan)
+                                <option value="{{ $ikan->id }}">{{ $ikan->nama_ikan }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold" style="font-size:.85em;">Jumlah Benih (Ekor) <span class="text-danger">*</span></label>
+                            <input type="number" name="jumlah_benih" id="edit_jumlah_benih" class="form-control" min="0" required style="border-radius:8px;">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold" style="font-size:.85em;">Tanggal Tebar <span class="text-danger">*</span></label>
+                            <input type="date" name="tanggal_tebar" id="edit_tanggal_tebar" class="form-control" required style="border-radius:8px;">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold" style="font-size:.85em;">Status <span class="text-danger">*</span></label>
+                        <select name="status" id="edit_status" class="form-select" style="border-radius:8px;" required>
+                            <option value="aktif">Aktif (Sedang dibudidaya)</option>
+                            <option value="panen">Panen (Sudah dipanen)</option>
+                            <option value="gagal">Gagal (Mati / Penyakit / Cuaca)</option>
+                        </select>
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label fw-semibold" style="font-size:.85em;">Catatan (Opsional)</label>
+                        <textarea name="catatan" id="edit_catatan" rows="2" class="form-control" style="border-radius:8px;"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border-top:1px solid #f1f5f9;padding:12px 20px;">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" style="border-radius:8px;">Batal</button>
+                    <button type="submit" class="btn btn-primary btn-sm" style="border-radius:8px;background:#2563eb;">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection

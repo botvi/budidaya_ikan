@@ -97,12 +97,29 @@
  <span style="background:#f1f5f9;color:#475569;padding:3px 10px;border-radius:20px;font-size:.8em;font-weight:600;">{{ ucfirst($k->jenis_kolam) }}</span>
  </td>
  <td style="padding:14px 12px;color:#374151;">{{ $k->luas_m2 ? $k->luas_m2.' m²' : '-' }}</td>
- <td style="padding:14px 12px;color:#374151;">{{ $k->jenisIkan->pluck('nama_ikan')->join(', ') ?: '-' }}</td>
+ <td style="padding:14px 12px;">
+ @if($k->ikanKolam->count() > 0)
+ <div class="d-flex flex-wrap gap-1">
+ @foreach($k->ikanKolam as $ik)
+ @php
+ $ikBg = $ik->status == 'aktif' ? '#dcfce7' : ($ik->status == 'panen' ? '#dbeafe' : '#fee2e2');
+ $ikTx = $ik->status == 'aktif' ? '#15803d' : ($ik->status == 'panen' ? '#1d4ed8' : '#dc2626');
+ @endphp
+ <span style="background:{{ $ikBg }};color:{{ $ikTx }};padding:2px 8px;border-radius:12px;font-size:.76em;font-weight:600;" title="{{ number_format($ik->jumlah_benih) }} ekor &bull; Status: {{ ucfirst($ik->status) }}">
+ 🐟 {{ $ik->jenisIkan->nama_ikan ?? '-' }}
+ <span style="font-size:.9em;opacity:.85;">({{ ucfirst($ik->status) }})</span>
+ </span>
+ @endforeach
+ </div>
+ @else
+ <span style="color:#9ca3af;font-size:.82em;">-</span>
+ @endif
+ </td>
  <td style="padding:14px 12px;">
  @if($k->hasCoordinates())
- <span style="background:#f0fdf4;color:#15803d;padding:3px 10px;border-radius:20px;font-size:.76em;font-weight:600;"> {{ number_format($k->latitude, 4) }}, {{ number_format($k->longitude, 4) }}</span>
+ <span style="background:#f0fdf4;color:#15803d;padding:3px 10px;border-radius:20px;font-size:.76em;font-weight:600;">📍 {{ number_format($k->latitude, 4) }}, {{ number_format($k->longitude, 4) }}</span>
  @else
- <span style="background:#fef2f2;color:#dc2626;padding:3px 10px;border-radius:20px;font-size:.76em;"> Belum ada</span>
+ <span style="background:#fef2f2;color:#dc2626;padding:3px 10px;border-radius:20px;font-size:.76em;">⚠️ Belum ada</span>
  @endif
  </td>
  <td style="padding:14px 12px;">
@@ -112,11 +129,17 @@
  </td>
  <td style="padding:14px 12px;">
  <div class="d-flex gap-1">
- <a href="{{ route('kolam.show', $k) }}" class="btn btn-sm" style="background:#eff6ff;color:#1d4ed8;border-radius:8px;padding:5px 10px;"></a>
- <a href="{{ route('kolam.edit', $k) }}" class="btn btn-sm" style="background:#fef3c7;color:#b45309;border-radius:8px;padding:5px 10px;"></a>
+ <a href="{{ route('kolam.show', $k) }}" class="btn btn-sm" style="background:#eff6ff;color:#1d4ed8;border-radius:8px;padding:5px 10px;" title="Lihat Detail & Kelola Ikan">
+ 👁️
+ </a>
+ <a href="{{ route('kolam.edit', $k) }}" class="btn btn-sm" style="background:#fef3c7;color:#b45309;border-radius:8px;padding:5px 10px;" title="Edit Kolam">
+ ✏️
+ </a>
  <form action="{{ route('kolam.destroy', $k) }}" method="POST" onsubmit="return confirm('Hapus kolam {{ $k->nama_kolam }}?')">
  @csrf @method('DELETE')
- <button class="btn btn-sm" style="background:#fee2e2;color:#dc2626;border-radius:8px;padding:5px 10px;border:none;"></button>
+ <button type="submit" class="btn btn-sm" style="background:#fee2e2;color:#dc2626;border-radius:8px;padding:5px 10px;border:none;" title="Hapus Kolam">
+ 🗑️
+ </button>
  </form>
  </div>
  </td>
