@@ -72,6 +72,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('hasil-panen', HasilPanenController::class);
 
     // Laporan
+    Route::get('/laporan/print', [LaporanController::class, 'print'])->name('laporan.print');
     Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
 
     // Admin-only routes

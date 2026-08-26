@@ -235,7 +235,7 @@
  <div class="feature-card">
  <div class="feature-icon" style="background: linear-gradient(135deg,#b45309,#d97706);"></div>
  <div class="feature-title">Data Hasil Panen</div>
- <div class="feature-desc">Rekam dan pantau hasil panen: bobot, jumlah ekor, harga, dan total pendapatan.</div>
+ <div class="feature-desc">Rekam dan pantau total panen (kg) ikan air tawar secara berkala.</div>
  </div>
  <div class="feature-card">
  <div class="feature-icon" style="background: linear-gradient(135deg,#7c3aed,#8b5cf6);"></div>

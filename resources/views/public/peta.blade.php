@@ -523,11 +523,7 @@ function showInfoSidebar(prop) {
             <div style="display:flex;gap:14px;flex-wrap:wrap;">
                 <div>
                     <div style="font-weight:800;color:#22c55e;font-size:1em;">${prop.total_panen_kg ? parseFloat(prop.total_panen_kg).toLocaleString('id') + ' kg' : '0 kg'}</div>
-                    <div style="font-size:.7em;color:#64748b;">Total Panen</div>
-                </div>
-                <div>
-                    <div style="font-weight:800;color:#f59e0b;font-size:.9em;">Rp ${prop.total_pendapatan ? parseFloat(prop.total_pendapatan).toLocaleString('id') : '0'}</div>
-                    <div style="font-size:.7em;color:#64748b;">Pendapatan</div>
+                    <div style="font-size:.7em;color:#64748b;">Total Panen (kg)</div>
                 </div>
             </div>
         </div>
