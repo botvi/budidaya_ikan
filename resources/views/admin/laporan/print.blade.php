@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cetak Laporan — SIBUDI Dinas Perikanan Kuantan Singingi</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tinos:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tinos:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 
     <style>
@@ -261,10 +264,21 @@
             border-bottom: 2px solid #64748b;
         }
 
-        .text-center { text-align: center !important; }
-        .text-end { text-align: right !important; }
-        .text-muted { color: #64748b; }
-        .fw-bold { font-weight: 700; }
+        .text-center {
+            text-align: center !important;
+        }
+
+        .text-end {
+            text-align: right !important;
+        }
+
+        .text-muted {
+            color: #64748b;
+        }
+
+        .fw-bold {
+            font-weight: 700;
+        }
 
         .badge-status {
             display: inline-block;
@@ -393,6 +407,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- ===== TOOLBAR (Disembunyikan saat cetak) ===== -->
@@ -404,22 +419,27 @@
 
         <div class="toolbar-actions">
             <!-- Filter Tipe Laporan -->
-            <form method="GET" action="{{ route('laporan.print') }}" style="display:inline-flex;align-items:center;gap:6px;">
+            <form method="GET" action="{{ route('laporan.print') }}"
+                style="display:inline-flex;align-items:center;gap:6px;">
                 <label for="type-select" style="font-size:12px;font-weight:600;color:#475569;">Pilih Laporan:</label>
                 <select name="type" id="type-select" class="filter-select" onchange="this.form.submit()">
-                    <option value="all" {{ ($type ?? 'all') == 'all' ? 'selected' : '' }}>Semua Laporan (Lengkap)</option>
+                    <option value="all" {{ ($type ?? 'all') == 'all' ? 'selected' : '' }}>Semua Laporan (Lengkap)
+                    </option>
                     <option value="kolam" {{ ($type ?? '') == 'kolam' ? 'selected' : '' }}>Laporan Data Kolam</option>
-                    <option value="jenis-ikan" {{ ($type ?? '') == 'jenis-ikan' ? 'selected' : '' }}>Laporan Data Jenis Ikan</option>
-                    <option value="hasil-panen" {{ ($type ?? '') == 'hasil-panen' ? 'selected' : '' }}>Laporan Data Hasil Panen</option>
-                    <option value="pembudidaya" {{ ($type ?? '') == 'pembudidaya' ? 'selected' : '' }}>Laporan Data Pembudidaya</option>
+                    <option value="jenis-ikan" {{ ($type ?? '') == 'jenis-ikan' ? 'selected' : '' }}>Laporan Data Jenis
+                        Ikan</option>
+                    <option value="hasil-panen" {{ ($type ?? '') == 'hasil-panen' ? 'selected' : '' }}>Laporan Data
+                        Hasil Panen</option>
+                    <option value="pembudidaya" {{ ($type ?? '') == 'pembudidaya' ? 'selected' : '' }}>Laporan Data
+                        Pembudidaya</option>
                 </select>
-                @if(request('jenis_ikan_id'))
+                @if (request('jenis_ikan_id'))
                     <input type="hidden" name="jenis_ikan_id" value="{{ request('jenis_ikan_id') }}">
                 @endif
-                @if(request('bulan'))
+                @if (request('bulan'))
                     <input type="hidden" name="bulan" value="{{ request('bulan') }}">
                 @endif
-                @if(request('tahun'))
+                @if (request('tahun'))
                     <input type="hidden" name="tahun" value="{{ request('tahun') }}">
                 @endif
             </form>
@@ -439,11 +459,10 @@
 
         <!-- KOP SURAT RESMI -->
         <div class="kop-surat">
-            <img src="https://scontent-sin6-3.cdninstagram.com/v/t51.82787-19/758423459_18085964252649792_7877274442407450070_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=106&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=3ErEcDvfRsIQ7kNvwHbx-7z&_nc_oc=AdqkKrgnNREzncRYQuaCk15n1ytkIUlSwDYwzS_-PGQCMjeTNNnC3pj6HF1WHn6BrPY&_nc_zt=24&_nc_ht=scontent-sin6-3.cdninstagram.com&_nc_gid=3nEpFYpgO4hiO_3iX323vw&oh=00_AQFmh6gyk0e7Y7OqsF0_4KW0K5jzYIh1mIXK31idq51D5w&oe=6A94D8FA"
-                 alt="Logo Dinas Perikanan"
-                 class="kop-logo"
-                 onerror="this.style.display='none'; document.getElementById('kop-fallback-logo').style.display='flex';">
-            
+            <img src="https://scontent-sin6-3.cdninstagram.com/v/t51.82787-19/758423459_18085964252649792_7877274442407450070_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=106&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=3ErEcDvfRsIQ7kNvwHbx-7z&_nc_oc=AdqkKrgnNREzncRYQuaCk15n1ytkIUlSwDYwzS_-PGQCMjeTNNnC3pj6HF1WHn6BrPY&_nc_zt=24&_nc_ht=scontent-sin6-3.cdninstagram.com&_nc_gid=95P4GdeLaNUsqcgU4IocFQ&_nc_ss=7ba8c&oh=00_AQGWI1Z7CjCu9ySeGy3PKXMZVAqLhWRqRyFJ5Ywb0SsgpQ&oe=6A94D8FA"
+                alt="Logo Dinas Perikanan" class="kop-logo"
+                onerror="this.style.display='none'; document.getElementById('kop-fallback-logo').style.display='flex';">
+
             <div id="kop-fallback-logo" class="kop-logo-placeholder" style="display:none;">
                 <i class="ti ti-fish"></i>
             </div>
@@ -453,14 +472,15 @@
                 <div class="kop-dinas">DINAS PERIKANAN</div>
                 <div class="kop-sub">Sistem Informasi Resmi &bull; KUANTAN SINGINGI</div>
                 <div class="kop-aplikasi">Sistem Informasi Budidaya Ikan Air Tawar (SIBUDI)</div>
-                <div class="kop-alamat">Kabupaten Kuantan Singingi, Provinsi Riau &bull; Email: diskan@kuansing.go.id</div>
+                <div class="kop-alamat">Kabupaten Kuantan Singingi, Provinsi Riau &bull; Email: diskan@kuansing.go.id
+                </div>
             </div>
         </div>
 
         <!-- JUDUL LAPORAN -->
         <div class="report-header">
             <div class="report-title">
-                @if($type == 'kolam')
+                @if ($type == 'kolam')
                     LAPORAN DATA KOLAM BUDIDAYA
                 @elseif($type == 'jenis-ikan')
                     LAPORAN DATA JENIS IKAN BUDIDAYA
@@ -480,179 +500,183 @@
         {{-- ========================================================================= --}}
         {{-- 1. TABEL DATA KOLAM (Hapus Alamat) --}}
         {{-- ========================================================================= --}}
-        @if($type == 'all' || $type == 'kolam')
-        <div class="section-title">I. Laporan Data Kolam</div>
-        <table class="table-cetak">
-            <thead>
-                <tr>
-                    <th class="text-center" style="width: 35px;">No</th>
-                    <th>Nama Kolam</th>
-                    <th>Pembudidaya</th>
-                    <th>Jenis Kolam</th>
-                    <th class="text-end">Luas (m²)</th>
-                    <th class="text-end">Kedalaman (m)</th>
-                    <th>Jenis Ikan</th>
-                    <th class="text-end">Total Panen (kg)</th>
-                    <th class="text-center">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($kolam as $i => $k)
-                <tr>
-                    <td class="text-center">{{ $i + 1 }}</td>
-                    <td class="fw-bold">{{ $k->nama_kolam }}</td>
-                    <td>{{ $k->pembudidaya->nama ?? '-' }}</td>
-                    <td>{{ ucfirst($k->jenis_kolam) }}</td>
-                    <td class="text-end">{{ number_format($k->luas_m2, 1) }}</td>
-                    <td class="text-end">{{ number_format($k->kedalaman_m, 1) }}</td>
-                    <td>{{ $k->jenisIkan->pluck('nama_ikan')->join(', ') ?: '-' }}</td>
-                    <td class="text-end fw-bold">{{ number_format($k->hasilPanen->sum('total_panen_kg'), 1) }}</td>
-                    <td class="text-center">
-                        <span class="badge-status {{ $k->status_kolam == 'aktif' ? 'badge-aktif' : 'badge-nonaktif' }}">
-                            {{ $k->status_label }}
-                        </span>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="9" class="text-center text-muted">Belum ada data kolam.</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
+        @if ($type == 'all' || $type == 'kolam')
+            <div class="section-title">I. Laporan Data Kolam</div>
+            <table class="table-cetak">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 35px;">No</th>
+                        <th>Nama Kolam</th>
+                        <th>Pembudidaya</th>
+                        <th>Jenis Kolam</th>
+                        <th class="text-end">Luas (m²)</th>
+                        <th class="text-end">Kedalaman (m)</th>
+                        <th>Jenis Ikan</th>
+                        <th class="text-end">Total Panen (kg)</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($kolam as $i => $k)
+                        <tr>
+                            <td class="text-center">{{ $i + 1 }}</td>
+                            <td class="fw-bold">{{ $k->nama_kolam }}</td>
+                            <td>{{ $k->pembudidaya->nama ?? '-' }}</td>
+                            <td>{{ ucfirst($k->jenis_kolam) }}</td>
+                            <td class="text-end">{{ number_format($k->luas_m2, 1) }}</td>
+                            <td class="text-end">{{ number_format($k->kedalaman_m, 1) }}</td>
+                            <td>{{ $k->jenisIkan->pluck('nama_ikan')->join(', ') ?: '-' }}</td>
+                            <td class="text-end fw-bold">{{ number_format($k->hasilPanen->sum('total_panen_kg'), 1) }}
+                            </td>
+                            <td class="text-center">
+                                <span
+                                    class="badge-status {{ $k->status_kolam == 'aktif' ? 'badge-aktif' : 'badge-nonaktif' }}">
+                                    {{ $k->status_label }}
+                                </span>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="9" class="text-center text-muted">Belum ada data kolam.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         @endif
 
         {{-- ========================================================================= --}}
         {{-- 2. TABEL DATA JENIS IKAN (Hapus Jumlah di Tebar dan Jumlah di Panen) --}}
         {{-- ========================================================================= --}}
-        @if($type == 'all' || $type == 'jenis-ikan')
-        <div class="section-title">
-            {{ $type == 'all' ? 'II. Laporan Data Jenis Ikan' : 'Laporan Data Jenis Ikan' }}
-        </div>
-        <table class="table-cetak">
-            <thead>
-                <tr>
-                    <th class="text-center" style="width: 35px;">No</th>
-                    <th>Nama Ikan</th>
-                    <th>Nama Latin</th>
-                    <th class="text-center">Umur Panen (Hari)</th>
-                    <th class="text-center">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($jenisIkan as $i => $j)
-                <tr>
-                    <td class="text-center">{{ $i + 1 }}</td>
-                    <td class="fw-bold">{{ $j->nama_ikan }}</td>
-                    <td><i>{{ $j->nama_latin }}</i></td>
-                    <td class="text-center">{{ $j->umur_panen_hari }}</td>
-                    <td class="text-center">
-                        <span class="badge-status {{ $j->status == 'aktif' ? 'badge-aktif' : 'badge-nonaktif' }}">
-                            {{ ucfirst($j->status) }}
-                        </span>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="5" class="text-center text-muted">Belum ada data jenis ikan.</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
+        @if ($type == 'all' || $type == 'jenis-ikan')
+            <div class="section-title">
+                {{ $type == 'all' ? 'II. Laporan Data Jenis Ikan' : 'Laporan Data Jenis Ikan' }}
+            </div>
+            <table class="table-cetak">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 35px;">No</th>
+                        <th>Nama Ikan</th>
+                        <th>Nama Latin</th>
+                        <th class="text-center">Umur Panen (Hari)</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($jenisIkan as $i => $j)
+                        <tr>
+                            <td class="text-center">{{ $i + 1 }}</td>
+                            <td class="fw-bold">{{ $j->nama_ikan }}</td>
+                            <td><i>{{ $j->nama_latin }}</i></td>
+                            <td class="text-center">{{ $j->umur_panen_hari }}</td>
+                            <td class="text-center">
+                                <span
+                                    class="badge-status {{ $j->status == 'aktif' ? 'badge-aktif' : 'badge-nonaktif' }}">
+                                    {{ ucfirst($j->status) }}
+                                </span>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center text-muted">Belum ada data jenis ikan.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         @endif
 
         {{-- ========================================================================= --}}
         {{-- 3. TABEL DATA HASIL PANEN (Hapus Bobot, Harga, Total Pendapatan; Total Panen kg) --}}
         {{-- ========================================================================= --}}
-        @if($type == 'all' || $type == 'hasil-panen')
-        <div class="section-title">
-            {{ $type == 'all' ? 'III. Laporan Data Hasil Panen' : 'Laporan Data Hasil Panen' }}
-        </div>
-        <table class="table-cetak">
-            <thead>
-                <tr>
-                    <th class="text-center" style="width: 35px;">No</th>
-                    <th>Tanggal Panen</th>
-                    <th>Nama Kolam</th>
-                    <th>Pembudidaya</th>
-                    <th>Jenis Ikan</th>
-                    <th class="text-end">Total Panen (kg)</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($hasilPanen as $i => $hp)
-                <tr>
-                    <td class="text-center">{{ $i + 1 }}</td>
-                    <td>{{ $hp->tanggal_panen->translatedFormat('d F Y') }}</td>
-                    <td class="fw-bold">{{ $hp->kolam->nama_kolam ?? '-' }}</td>
-                    <td>{{ $hp->kolam->pembudidaya->nama ?? '-' }}</td>
-                    <td>{{ $hp->jenisIkan->nama_ikan ?? '-' }}</td>
-                    <td class="text-end fw-bold" style="color:#15803d;">
-                        {{ number_format($hp->total_panen_kg, 1) }} kg
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="6" class="text-center text-muted">Belum ada data hasil panen.</td>
-                </tr>
-                @endforelse
-            </tbody>
-            @if($hasilPanen->count() > 0)
-            <tfoot>
-                <tr>
-                    <td colspan="5" class="text-end fw-bold">TOTAL KESELURUHAN PANEN:</td>
-                    <td class="text-end fw-bold" style="color:#15803d;">
-                        {{ number_format($totalBobotPanen, 1) }} kg
-                    </td>
-                </tr>
-            </tfoot>
-            @endif
-        </table>
+        @if ($type == 'all' || $type == 'hasil-panen')
+            <div class="section-title">
+                {{ $type == 'all' ? 'III. Laporan Data Hasil Panen' : 'Laporan Data Hasil Panen' }}
+            </div>
+            <table class="table-cetak">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 35px;">No</th>
+                        <th>Tanggal Panen</th>
+                        <th>Nama Kolam</th>
+                        <th>Pembudidaya</th>
+                        <th>Jenis Ikan</th>
+                        <th class="text-end">Total Panen (kg)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($hasilPanen as $i => $hp)
+                        <tr>
+                            <td class="text-center">{{ $i + 1 }}</td>
+                            <td>{{ $hp->tanggal_panen->translatedFormat('d F Y') }}</td>
+                            <td class="fw-bold">{{ $hp->kolam->nama_kolam ?? '-' }}</td>
+                            <td>{{ $hp->kolam->pembudidaya->nama ?? '-' }}</td>
+                            <td>{{ $hp->jenisIkan->nama_ikan ?? '-' }}</td>
+                            <td class="text-end fw-bold" style="color:#15803d;">
+                                {{ number_format($hp->total_panen_kg, 1) }} kg
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center text-muted">Belum ada data hasil panen.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+                @if ($hasilPanen->count() > 0)
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" class="text-end fw-bold">TOTAL KESELURUHAN PANEN:</td>
+                            <td class="text-end fw-bold" style="color:#15803d;">
+                                {{ number_format($totalBobotPanen, 1) }} kg
+                            </td>
+                        </tr>
+                    </tfoot>
+                @endif
+            </table>
         @endif
 
         {{-- ========================================================================= --}}
         {{-- 4. TABEL DATA PEMBUDIDAYA --}}
         {{-- ========================================================================= --}}
-        @if($type == 'all' || $type == 'pembudidaya')
-        <div class="section-title">
-            {{ $type == 'all' ? 'IV. Laporan Data Pembudidaya' : 'Laporan Data Pembudidaya' }}
-        </div>
-        <table class="table-cetak">
-            <thead>
-                <tr>
-                    <th class="text-center" style="width: 35px;">No</th>
-                    <th>NIK</th>
-                    <th>Nama Lengkap</th>
-                    <th>Alamat</th>
-                    <th>No. HP</th>
-                    <th class="text-center">L/P</th>
-                    <th class="text-center">Jml Kolam</th>
-                    <th class="text-center">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($pembudidaya as $i => $p)
-                <tr>
-                    <td class="text-center">{{ $i + 1 }}</td>
-                    <td>{{ $p->nik }}</td>
-                    <td class="fw-bold">{{ $p->nama }}</td>
-                    <td>{{ $p->alamat }}</td>
-                    <td>{{ $p->no_hp }}</td>
-                    <td class="text-center">{{ $p->jenis_kelamin }}</td>
-                    <td class="text-center">{{ $p->kolam_count }}</td>
-                    <td class="text-center">
-                        <span class="badge-status {{ $p->status == 'aktif' ? 'badge-aktif' : 'badge-nonaktif' }}">
-                            {{ ucfirst($p->status) }}
-                        </span>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="8" class="text-center text-muted">Belum ada data pembudidaya.</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
+        @if ($type == 'all' || $type == 'pembudidaya')
+            <div class="section-title">
+                {{ $type == 'all' ? 'IV. Laporan Data Pembudidaya' : 'Laporan Data Pembudidaya' }}
+            </div>
+            <table class="table-cetak">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 35px;">No</th>
+                        <th>NIK</th>
+                        <th>Nama Lengkap</th>
+                        <th>Alamat</th>
+                        <th>No. HP</th>
+                        <th class="text-center">L/P</th>
+                        <th class="text-center">Jml Kolam</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($pembudidaya as $i => $p)
+                        <tr>
+                            <td class="text-center">{{ $i + 1 }}</td>
+                            <td>{{ $p->nik }}</td>
+                            <td class="fw-bold">{{ $p->nama }}</td>
+                            <td>{{ $p->alamat }}</td>
+                            <td>{{ $p->no_hp }}</td>
+                            <td class="text-center">{{ $p->jenis_kelamin }}</td>
+                            <td class="text-center">{{ $p->kolam_count }}</td>
+                            <td class="text-center">
+                                <span
+                                    class="badge-status {{ $p->status == 'aktif' ? 'badge-aktif' : 'badge-nonaktif' }}">
+                                    {{ ucfirst($p->status) }}
+                                </span>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center text-muted">Belum ada data pembudidaya.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         @endif
 
         <!-- ===== TANDA TANGAN RESMI ===== -->
@@ -677,4 +701,5 @@
     </div>
 
 </body>
+
 </html>
