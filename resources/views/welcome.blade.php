@@ -296,16 +296,15 @@
  <div style="font-size:.74em;color:rgba(255,255,255,.4);">{{ $hp->kolam->nama_kolam ?? '-' }}</div>
  </div>
  </div>
- <div style="display:flex;justify-content:space-between;align-items:center;">
- <div>
- <div style="font-size:1.2em;font-weight:800;color:#22c55e;">{{ number_format($hp->bobot_kg, 1) }} kg</div>
- <div style="font-size:.74em;color:rgba(255,255,255,.4);">{{ $hp->tanggal_panen->format('d M Y') }}</div>
- </div>
- <div style="text-align:right;">
- <div style="font-size:.88em;font-weight:700;color:#f59e0b;">Rp {{ number_format($hp->total_pendapatan, 0,',','.') }}</div>
- <div style="font-size:.74em;color:rgba(255,255,255,.4);">{{ $hp->kolam->pembudidaya->nama ?? '' }}</div>
- </div>
- </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;">
+  <div>
+  <div style="font-size:1.2em;font-weight:800;color:#22c55e;">{{ number_format($hp->total_panen_kg, 1) }} kg</div>
+  <div style="font-size:.74em;color:rgba(255,255,255,.4);">{{ $hp->tanggal_panen->format('d M Y') }}</div>
+  </div>
+  <div style="text-align:right;">
+  <div style="font-size:.74em;color:rgba(255,255,255,.6);">{{ $hp->kolam->pembudidaya->nama ?? '' }}</div>
+  </div>
+  </div>
  </div>
  @endforeach
  </div>

@@ -270,12 +270,8 @@
     <!-- Statistik -->
     <div class="stat-grid">
         <div class="stat-card">
-            <div class="stat-val" style="color:#22c55e;">{{ number_format($kolam->hasilPanen->sum('bobot_kg'), 0, ',', '.') }}</div>
+            <div class="stat-val" style="color:#22c55e;">{{ number_format($kolam->hasilPanen->sum('total_panen_kg'), 0, ',', '.') }}</div>
             <div class="stat-lbl">kg Total Panen</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-val" style="color:#f59e0b;font-size:1.1em;">Rp {{ number_format($kolam->hasilPanen->sum('total_pendapatan'), 0, ',', '.') }}</div>
-            <div class="stat-lbl">Total Pendapatan</div>
         </div>
         <div class="stat-card">
             <div class="stat-val" style="color:#3b82f6;">{{ $kolam->hasilPanen->count() }}</div>
@@ -383,13 +379,10 @@
                 <div class="panen-name">{{ $hp->jenisIkan->nama_ikan ?? '-' }}</div>
                 <div class="panen-meta">
                     {{ $hp->tanggal_panen->format('d F Y') }}
-                    &bull; {{ number_format($hp->jumlah_ekor) }} ekor
-                    &bull; Rp {{ number_format($hp->harga_per_kg, 0, ',', '.') }}/kg
                 </div>
             </div>
             <div class="panen-amount">
-                <div class="panen-kg">{{ number_format($hp->bobot_kg, 1) }} kg</div>
-                <div class="panen-rp">Rp {{ number_format($hp->total_pendapatan, 0, ',', '.') }}</div>
+                <div class="panen-kg">{{ number_format($hp->total_panen_kg, 1) }} kg</div>
             </div>
         </div>
         @empty

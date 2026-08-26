@@ -52,21 +52,10 @@
  <label class="form-label fw-600">Tanggal Panen <span class="text-danger">*</span></label>
  <input type="date" name="tanggal_panen" value="{{ old('tanggal_panen', $hasilPanen->tanggal_panen->format('Y-m-d')) }}" class="form-control" style="border-radius:10px;">
  </div>
- <div class="col-md-4">
- <label class="form-label fw-600">Bobot Total (kg)</label>
- <input type="number" step="0.01" name="bobot_kg" id="bobot_kg" value="{{ old('bobot_kg', $hasilPanen->bobot_kg) }}" class="form-control" min="0" style="border-radius:10px;" oninput="hitungTotal()">
- </div>
- <div class="col-md-4">
- <label class="form-label fw-600">Jumlah (Ekor)</label>
- <input type="number" name="jumlah_ekor" value="{{ old('jumlah_ekor', $hasilPanen->jumlah_ekor) }}" class="form-control" min="0" style="border-radius:10px;">
- </div>
- <div class="col-md-6">
- <label class="form-label fw-600">Harga per Kg (Rp)</label>
- <input type="number" name="harga_per_kg" id="harga_per_kg" value="{{ old('harga_per_kg', $hasilPanen->harga_per_kg) }}" class="form-control" min="0" style="border-radius:10px;" oninput="hitungTotal()">
- </div>
- <div class="col-md-6">
- <label class="form-label fw-600">Total Pendapatan (Rp)</label>
- <input type="number" name="total_pendapatan" id="total_pendapatan" value="{{ old('total_pendapatan', $hasilPanen->total_pendapatan) }}" class="form-control" style="border-radius:10px;background:#f9fafb;" readonly>
+ <div class="col-md-8">
+ <label class="form-label fw-600">Total Panen (kg) <span class="text-danger">*</span></label>
+ <input type="number" step="0.01" name="total_panen_kg" id="total_panen_kg" value="{{ old('total_panen_kg', $hasilPanen->total_panen_kg) }}" class="form-control @error('total_panen_kg') is-invalid @enderror" placeholder="0.00" min="0" style="border-radius:10px;">
+ @error('total_panen_kg')<div class="invalid-feedback">{{ $message }}</div>@enderror
  </div>
  <div class="col-12">
  <label class="form-label fw-600">Keterangan</label>
@@ -83,11 +72,4 @@
  </div>
  </div>
 </div>
-<script>
-function hitungTotal() {
- const bobot = parseFloat(document.getElementById('bobot_kg').value) || 0;
- const harga = parseFloat(document.getElementById('harga_per_kg').value) || 0;
- document.getElementById('total_pendapatan').value = (bobot * harga).toFixed(0);
-}
-</script>
 @endsection

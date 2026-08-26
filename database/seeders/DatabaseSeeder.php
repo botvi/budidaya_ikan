@@ -105,11 +105,11 @@ class DatabaseSeeder extends Seeder
         // ---- HASIL PANEN ----
         HasilPanen::truncate();
         $hasilPanen = [
-            ['kolam_id' => 4, 'jenis_ikan_id' => 3, 'tanggal_panen' => '2024-06-20', 'bobot_kg' => 480, 'jumlah_ekor' => 1800, 'harga_per_kg' => 22000, 'total_pendapatan' => 10560000, 'keterangan' => 'Panen raya pertama ikan mas'],
-            ['kolam_id' => 1, 'jenis_ikan_id' => 1, 'tanggal_panen' => '2024-05-30', 'bobot_kg' => 350, 'jumlah_ekor' => 4500, 'harga_per_kg' => 18000, 'total_pendapatan' => 6300000, 'keterangan' => 'Panen perdana lele A1'],
-            ['kolam_id' => 3, 'jenis_ikan_id' => 2, 'tanggal_panen' => '2024-07-10', 'bobot_kg' => 620, 'jumlah_ekor' => 6200, 'harga_per_kg' => 24000, 'total_pendapatan' => 14880000, 'keterangan' => 'Panen nila merah'],
-            ['kolam_id' => 5, 'jenis_ikan_id' => 4, 'tanggal_panen' => '2024-08-01', 'bobot_kg' => 900, 'jumlah_ekor' => 4500, 'harga_per_kg' => 28000, 'total_pendapatan' => 25200000, 'keterangan' => 'Panen patin jumbo skala besar'],
-            ['kolam_id' => 7, 'jenis_ikan_id' => 5, 'tanggal_panen' => '2024-09-15', 'bobot_kg' => 180, 'jumlah_ekor' => 900, 'harga_per_kg' => 45000, 'total_pendapatan' => 8100000, 'keterangan' => 'Panen baung premium'],
+            ['kolam_id' => 4, 'jenis_ikan_id' => 3, 'tanggal_panen' => '2024-06-20', 'total_panen_kg' => 480, 'keterangan' => 'Panen raya pertama ikan mas'],
+            ['kolam_id' => 1, 'jenis_ikan_id' => 1, 'tanggal_panen' => '2024-05-30', 'total_panen_kg' => 350, 'keterangan' => 'Panen perdana lele A1'],
+            ['kolam_id' => 3, 'jenis_ikan_id' => 2, 'tanggal_panen' => '2024-07-10', 'total_panen_kg' => 620, 'keterangan' => 'Panen nila merah'],
+            ['kolam_id' => 5, 'jenis_ikan_id' => 4, 'tanggal_panen' => '2024-08-01', 'total_panen_kg' => 900, 'keterangan' => 'Panen patin jumbo skala besar'],
+            ['kolam_id' => 7, 'jenis_ikan_id' => 5, 'tanggal_panen' => '2024-09-15', 'total_panen_kg' => 180, 'keterangan' => 'Panen baung premium'],
         ];
         foreach ($hasilPanen as $hp) {
             HasilPanen::create($hp);

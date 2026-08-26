@@ -81,18 +81,6 @@
  </div>
  </div>
 
- <!-- Total Pendapatan banner -->
- <div style="background:linear-gradient(135deg,#064e3b,#0f766e);border-radius:16px;padding:20px 28px;margin-bottom:24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
- <div style="font-size:2em;"></div>
- <div>
- <div style="color:rgba(255,255,255,.7);font-size:.85em;font-weight:500;">Total Pendapatan Hasil Panen</div>
- <div style="color:#fff;font-size:1.8em;font-weight:800;">Rp {{ number_format($totalPendapatan, 0, ',', '.') }}</div>
- </div>
- <div style="margin-left:auto;">
- <a href="{{ route('hasil-panen.index') }}" style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.3);padding:10px 22px;border-radius:10px;text-decoration:none;font-size:.9em;font-weight:600;">Lihat Detail →</a>
- </div>
- </div>
-
  <div class="row g-4">
  <!-- Top Ikan -->
  <div class="col-md-6">
@@ -108,7 +96,6 @@
  <div style="font-weight:600;font-size:.9em;color:#1a1a2e;">{{ $item->jenisIkan->nama_ikan ?? '-' }}</div>
  <div style="font-size:.78em;color:#6b7280;">{{ number_format($item->total_kg, 0, ',', '.') }} kg • {{ $item->jumlah_panen }}x panen</div>
  </div>
- <div style="font-size:.85em;font-weight:700;color:#16a34a;">Rp {{ number_format($item->total_pendapatan, 0, ',', '.') }}</div>
  </div>
  @empty
  <p class="text-muted text-center">Belum ada data panen.</p>
@@ -129,7 +116,7 @@
  <div style="width:38px;height:38px;background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2em;flex-shrink:0;"></div>
  <div style="flex:1;">
  <div style="font-weight:600;font-size:.88em;color:#1a1a2e;">{{ $p->kolam->nama_kolam ?? '-' }}</div>
- <div style="font-size:.76em;color:#6b7280;">{{ $p->jenisIkan->nama_ikan ?? '-' }} • {{ $p->bobot_kg }} kg</div>
+ <div style="font-size:.76em;color:#6b7280;">{{ $p->jenisIkan->nama_ikan ?? '-' }} • {{ $p->total_panen_kg }} kg</div>
  </div>
  <div style="font-size:.78em;color:#16a34a;font-weight:600;text-align:right;">
  {{ \Carbon\Carbon::parse($p->tanggal_panen)->format('d M Y') }}<br>

@@ -75,9 +75,7 @@
  <th style="color:#6b7280;font-weight:600;border-bottom:1px solid #f0f0f0;padding:14px 12px;">Kolam</th>
  <th style="color:#6b7280;font-weight:600;border-bottom:1px solid #f0f0f0;padding:14px 12px;">Pembudidaya</th>
  <th style="color:#6b7280;font-weight:600;border-bottom:1px solid #f0f0f0;padding:14px 12px;">Jenis Ikan</th>
- <th style="color:#6b7280;font-weight:600;border-bottom:1px solid #f0f0f0;padding:14px 12px;">Bobot (kg)</th>
- <th style="color:#6b7280;font-weight:600;border-bottom:1px solid #f0f0f0;padding:14px 12px;">Jumlah (ekor)</th>
- <!-- <th style="color:#6b7280;font-weight:600;border-bottom:1px solid #f0f0f0;padding:14px 12px;">Total Pendapatan</th> -->
+ <th style="color:#6b7280;font-weight:600;border-bottom:1px solid #f0f0f0;padding:14px 12px;">Total Panen (kg)</th>
  <th style="color:#6b7280;font-weight:600;border-bottom:1px solid #f0f0f0;padding:14px 12px;">Aksi</th>
  </tr>
  </thead>
@@ -91,9 +89,7 @@
  <td style="padding:14px 12px;">
  <span style="background:#dbeafe;color:#1d4ed8;padding:3px 10px;border-radius:20px;font-size:.82em;font-weight:600;"> {{ $hp->jenisIkan->nama_ikan ?? '-' }}</span>
  </td>
- <td style="padding:14px 12px;font-weight:700;color:#15803d;">{{ number_format($hp->bobot_kg, 1) }} kg</td>
- <td style="padding:14px 12px;color:#374151;">{{ number_format($hp->jumlah_ekor) }} ekor</td>
- <!-- <td style="padding:14px 12px;font-weight:700;color:#b45309;">Rp {{ number_format($hp->total_pendapatan, 0, ',', '.') }}</td> -->
+ <td style="padding:14px 12px;font-weight:700;color:#15803d;">{{ number_format($hp->total_panen_kg, 1) }} kg</td>
  <td style="padding:14px 12px;">
  <div class="d-flex gap-1">
  <a href="{{ route('hasil-panen.edit', $hp) }}" class="btn btn-sm" style="background:#fef3c7;color:#b45309;border-radius:8px;padding:5px 10px;"></a>
@@ -105,7 +101,7 @@
  </td>
  </tr>
  @empty
- <tr><td colspan="9" class="text-center py-5" style="color:#9ca3af;">Belum ada data hasil panen.</td></tr>
+ <tr><td colspan="7" class="text-center py-5" style="color:#9ca3af;">Belum ada data hasil panen.</td></tr>
  @endforelse
  </tbody>
  </table>

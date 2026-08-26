@@ -45,9 +45,7 @@ class LaporanController extends Controller
 
         $hasilPanen = $hasilPanenQuery->orderByDesc('tanggal_panen')->get();
 
-        $totalBobotPanen      = $hasilPanen->sum('bobot_kg');
-        $totalEkorPanen       = $hasilPanen->sum('jumlah_ekor');
-        $totalPendapatanPanen = $hasilPanen->sum('total_pendapatan');
+        $totalBobotPanen      = $hasilPanen->sum('total_panen_kg');
 
         $jenisIkanList = JenisIkan::orderBy('nama_ikan')->get();
 
@@ -57,8 +55,6 @@ class LaporanController extends Controller
             'jenisIkan',
             'hasilPanen',
             'totalBobotPanen',
-            'totalEkorPanen',
-            'totalPendapatanPanen',
             'jenisIkanList'
         ));
     }

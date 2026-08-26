@@ -43,11 +43,10 @@ class HasilPanenController extends Controller
         $kolamList   = Kolam::orderBy('nama_kolam')->get();
         $jenisIkanList = JenisIkan::where('status', 'aktif')->orderBy('nama_ikan')->get();
 
-        $totalBobot       = $query->sum('bobot_kg');
-        $totalPendapatan  = $query->sum('total_pendapatan');
+        $totalPanenKg     = $query->sum('total_panen_kg');
 
         return view('admin.hasil-panen.index', compact(
-            'hasilPanen', 'kolamList', 'jenisIkanList', 'totalBobot', 'totalPendapatan'
+            'hasilPanen', 'kolamList', 'jenisIkanList', 'totalPanenKg'
         ));
     }
 
@@ -64,10 +63,7 @@ class HasilPanenController extends Controller
             'kolam_id'        => 'required|exists:kolam,id',
             'jenis_ikan_id'   => 'required|exists:jenis_ikan,id',
             'tanggal_panen'   => 'required|date',
-            'bobot_kg'        => 'required|numeric|min:0',
-            'jumlah_ekor'     => 'required|integer|min:0',
-            'harga_per_kg'    => 'required|numeric|min:0',
-            'total_pendapatan'=> 'required|numeric|min:0',
+            'total_panen_kg'  => 'required|numeric|min:0',
             'keterangan'      => 'nullable|string',
         ]);
 
@@ -96,10 +92,7 @@ class HasilPanenController extends Controller
             'kolam_id'        => 'required|exists:kolam,id',
             'jenis_ikan_id'   => 'required|exists:jenis_ikan,id',
             'tanggal_panen'   => 'required|date',
-            'bobot_kg'        => 'required|numeric|min:0',
-            'jumlah_ekor'     => 'required|integer|min:0',
-            'harga_per_kg'    => 'required|numeric|min:0',
-            'total_pendapatan'=> 'required|numeric|min:0',
+            'total_panen_kg'  => 'required|numeric|min:0',
             'keterangan'      => 'nullable|string',
         ]);
 

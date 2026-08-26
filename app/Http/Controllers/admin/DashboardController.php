@@ -16,12 +16,11 @@ class DashboardController extends Controller
         $totalKolam       = Kolam::count();
         $totalKolamAktif  = Kolam::where('status_kolam', 'aktif')->count();
         $totalJenisIkan   = JenisIkan::where('status', 'aktif')->count();
-        $totalPanenKg     = HasilPanen::sum('bobot_kg');
-        $totalPendapatan  = HasilPanen::sum('total_pendapatan');
+        $totalPanenKg     = HasilPanen::sum('total_panen_kg');
         $totalPanen       = HasilPanen::count();
 
         // Panen per bulan (6 bulan terakhir)
-        $panenPerBulan = HasilPanen::selectRaw('MONTH(tanggal_panen) as bulan, YEAR(tanggal_panen) as tahun, SUM(bobot_kg) as total_kg, SUM(total_pendapatan) as total_pendapatan')
+        $panenPerBulan = HasilPanen::selectRaw('MONTH(tanggal_panen) as bulan, YEAR(tanggal_panen) as tahun, SUM(total_panen_kg) as total_kg')
             ->where('tanggal_panen', '>=', now()->subMonths(6))
             ->groupByRaw('MONTH(tanggal_panen), YEAR(tanggal_panen)')
             ->orderByRaw('YEAR(tanggal_panen), MONTH(tanggal_panen)')
@@ -37,7 +36,7 @@ class DashboardController extends Controller
 
         // Top jenis ikan berdasarkan total panen
         $topIkan = HasilPanen::with('jenisIkan')
-            ->selectRaw('jenis_ikan_id, SUM(bobot_kg) as total_kg, SUM(total_pendapatan) as total_pendapatan, COUNT(*) as jumlah_panen')
+            ->selectRaw('jenis_ikan_id, SUM(total_panen_kg) as total_kg, COUNT(*) as jumlah_panen')
             ->groupBy('jenis_ikan_id')
             ->orderByDesc('total_kg')
             ->take(5)
@@ -51,7 +50,7 @@ class DashboardController extends Controller
 
         return view('admin.dashboard', compact(
             'totalPembudidaya', 'totalKolam', 'totalKolamAktif', 'totalJenisIkan',
-            'totalPanenKg', 'totalPendapatan', 'totalPanen',
+            'totalPanenKg', 'totalPanen',
             'panenPerBulan', 'kolamTerbaru', 'topIkan', 'recentPanen'
         ));
     }

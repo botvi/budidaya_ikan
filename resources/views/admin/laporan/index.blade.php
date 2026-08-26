@@ -4,47 +4,48 @@
 @section('content')
 <div class="pc-content">
 
- {{-- ===================== PRINT HEADER (hanya tampil saat cetak) ===================== --}}
- <div class="print-header" style="display:none;">
-  <div style="display:flex;align-items:center;gap:18px;border-bottom:3px solid #14532d;padding-bottom:14px;margin-bottom:18px;">
-   <img src="https://scontent-sin6-3.cdninstagram.com/v/t51.82787-19/758423459_18085964252649792_7877274442407450070_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=106&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=3ErEcDvfRsIQ7kNvwHbx-7z&_nc_oc=AdqkKrgnNREzncRYQuaCk15n1ytkIUlSwDYwzS_-PGQCMjeTNNnC3pj6HF1WHn6BrPY&_nc_zt=24&_nc_ht=scontent-sin6-3.cdninstagram.com&_nc_gid=3nEpFYpgO4hiO_3iX323vw&oh=00_AQFmh6gyk0e7Y7OqsF0_4KW0K5jzYIh1mIXK31idq51D5w&oe=6A94D8FA"
-    alt="Logo Dinas Perikanan" style="height:80px;width:80px;object-fit:cover;border-radius:50%;border:3px solid #14532d;" onerror="this.style.display='none'">
-   <div>
-    <div style="font-size:1.1em;font-weight:800;color:#14532d;line-height:1.3;">DINAS PERIKANAN</div>
-    <div style="font-size:.95em;font-weight:700;color:#14532d;">KABUPATEN KUANTAN SINGINGI</div>
-    <div style="font-size:.8em;color:#374151;margin-top:3px;">Sistem Informasi Budidaya Ikan Air Tawar (SIBUDI)</div>
+  {{-- ===================== PRINT HEADER (hanya tampil saat cetak) ===================== --}}
+  <div class="print-header" style="display:none;text-align:center;margin-bottom:20px;">
+   <div style="display:flex;align-items:center;justify-content:center;gap:18px;border-bottom:4px double #14532d;padding-bottom:12px;margin-bottom:12px;">
+    <img src="https://scontent-sin6-3.cdninstagram.com/v/t51.82787-19/758423459_18085964252649792_7877274442407450070_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=106&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=3ErEcDvfRsIQ7kNvwHbx-7z&_nc_oc=AdqkKrgnNREzncRYQuaCk15n1ytkIUlSwDYwzS_-PGQCMjeTNNnC3pj6HF1WHn6BrPY&_nc_zt=24&_nc_ht=scontent-sin6-3.cdninstagram.com&_nc_gid=3nEpFYpgO4hiO_3iX323vw&oh=00_AQFmh6gyk0e7Y7OqsF0_4KW0K5jzYIh1mIXK31idq51D5w&oe=6A94D8FA"
+     alt="Logo Dinas Perikanan" style="height:75px;width:75px;object-fit:cover;border-radius:50%;" onerror="this.style.display='none'">
+    <div style="text-align:center;">
+     <div style="font-size:1.15em;font-weight:800;color:#14532d;letter-spacing:0.5px;text-transform:uppercase;line-height:1.2;">PEMERINTAH KABUPATEN KUANTAN SINGINGI</div>
+     <div style="font-size:1.35em;font-weight:900;color:#14532d;margin-top:2px;text-transform:uppercase;line-height:1.2;">DINAS PERIKANAN</div>
+     <div style="font-size:.85em;color:#4b5563;font-weight:700;margin-top:3px;text-transform:uppercase;">Sistem Informasi Resmi &bull; KUANTAN SINGINGI</div>
+     <div style="font-size:1em;color:#111827;font-weight:700;margin-top:3px;">Sistem Informasi Budidaya Ikan Air Tawar (SIBUDI)</div>
+    </div>
    </div>
-   <div style="margin-left:auto;text-align:right;font-size:.8em;color:#6b7280;">
-    <div>Tanggal Cetak: {{ now()->translatedFormat('d F Y') }}</div>
-    <div>{{ now()->format('H:i') }} WIB</div>
+   <div style="text-align:right;font-size:.78em;color:#6b7280;margin-bottom:15px;">
+    Tanggal Cetak: {{ now()->translatedFormat('d F Y') }} &bull; {{ now()->format('H:i') }} WIB
    </div>
   </div>
- </div>
 
- {{-- ===================== PAGE HEADER (layar saja) ===================== --}}
- <div class="page-header no-print">
-  <div class="page-block">
-   <div class="row align-items-center">
-    <div class="col-md-12">
-     <ul class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-      <li class="breadcrumb-item active">Laporan</li>
-     </ul>
-    </div>
-    <div class="col-md-12 d-flex align-items-center justify-content-between flex-wrap gap-2">
-     <div style="display:flex;align-items:center;gap:14px;">
-      <img src="https://scontent-sin6-3.cdninstagram.com/v/t51.82787-19/758423459_18085964252649792_7877274442407450070_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=106&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=3ErEcDvfRsIQ7kNvwHbx-7z&_nc_oc=AdqkKrgnNREzncRYQuaCk15n1ytkIUlSwDYwzS_-PGQCMjeTNNnC3pj6HF1WHn6BrPY&_nc_zt=24&_nc_ht=scontent-sin6-3.cdninstagram.com&_nc_gid=3nEpFYpgO4hiO_3iX323vw&oh=00_AQFmh6gyk0e7Y7OqsF0_4KW0K5jzYIh1mIXK31idq51D5w&oe=6A94D8FA"
-       alt="Logo Dinas Perikanan"
-       style="height:52px;width:52px;object-fit:cover;border-radius:50%;border:2px solid #14532d;box-shadow:0 2px 8px rgba(0,0,0,.15);"
-       onerror="this.style.display='none'">
-      <div>
-       <h2 class="mb-0" style="color:#14532d;font-weight:800;">Laporan Data</h2>
-       <p class="text-muted mb-0" style="font-size:.85em;">Rekap seluruh data budidaya ikan air tawar — Dinas Perikanan Kuantan Singingi</p>
-      </div>
+  {{-- ===================== PAGE HEADER (layar saja) ===================== --}}
+  <div class="page-header no-print">
+   <div class="page-block">
+    <div class="row align-items-center">
+     <div class="col-md-12">
+      <ul class="breadcrumb">
+       <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+       <li class="breadcrumb-item active">Laporan</li>
+      </ul>
      </div>
-     <button type="button" onclick="window.print()" class="btn" style="background:linear-gradient(135deg,#0f766e,#0d9488);color:#fff;border:none;border-radius:10px;padding:10px 22px;font-weight:600;">
-      <i class="ti ti-printer me-1"></i> Cetak / Export PDF
-     </button>
+     <div class="col-md-12 d-flex align-items-center justify-content-between flex-wrap gap-2">
+      <div style="display:flex;align-items:center;gap:14px;">
+       <img src="https://scontent-sin6-3.cdninstagram.com/v/t51.82787-19/758423459_18085964252649792_7877274442407450070_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=106&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=3ErEcDvfRsIQ7kNvwHbx-7z&_nc_oc=AdqkKrgnNREzncRYQuaCk15n1ytkIUlSwDYwzS_-PGQCMjeTNNnC3pj6HF1WHn6BrPY&_nc_zt=24&_nc_ht=scontent-sin6-3.cdninstagram.com&_nc_gid=3nEpFYpgO4hiO_3iX323vw&oh=00_AQFmh6gyk0e7Y7OqsF0_4KW0K5jzYIh1mIXK31idq51D5w&oe=6A94D8FA"
+        alt="Logo Dinas Perikanan"
+        style="height:52px;width:52px;object-fit:cover;border-radius:50%;border:2px solid #14532d;box-shadow:0 2px 8px rgba(0,0,0,.15);"
+        onerror="this.style.display='none'">
+       <div>
+        <h2 class="mb-0" style="color:#14532d;font-weight:800;">Laporan Data</h2>
+        <p class="text-muted mb-0" style="font-size:.85em;">Rekap data budidaya ikan air tawar Dinas Perikanan Kuantan Singingi</p>
+       </div>
+      </div>
+      <button type="button" onclick="window.print()" class="btn" style="background:linear-gradient(135deg,#0f766e,#0d9488);color:#fff;border:none;border-radius:10px;padding:10px 22px;font-weight:600;">
+       <i class="ti ti-printer me-1"></i> Cetak / Export PDF
+      </button>
+     </div>
     </div>
    </div>
   </div>
@@ -124,7 +125,7 @@
          <td>{{ number_format($k->luas_m2, 1) }}</td>
          <td>{{ number_format($k->kedalaman_m, 1) }}</td>
          <td>{{ $k->jenisIkan->pluck('nama_ikan')->join(', ') ?: '-' }}</td>
-         <td>{{ number_format($k->hasilPanen->sum('bobot_kg'), 1) }}</td>
+         <td>{{ number_format($k->hasilPanen->sum('total_panen_kg'), 1) }}</td>
          <td>
           <span class="badge {{ $k->status_kolam == 'aktif' ? 'badge-aktif' : 'badge-nonaktif' }}">{{ $k->status_label }}</span>
          </td>
@@ -287,7 +288,7 @@
          <td>{{ $hp->kolam->nama_kolam ?? '-' }}</td>
          <td>{{ $hp->kolam->pembudidaya->nama ?? '-' }}</td>
          <td>{{ $hp->jenisIkan->nama_ikan ?? '-' }}</td>
-         <td style="font-weight:700;color:#15803d;">{{ number_format($hp->bobot_kg, 1) }} kg</td>
+         <td style="font-weight:700;color:#15803d;">{{ number_format($hp->total_panen_kg, 1) }} kg</td>
         </tr>
         @empty
         <tr><td colspan="6" class="text-center py-5 text-muted">Belum ada data hasil panen.</td></tr>

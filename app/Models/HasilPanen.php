@@ -12,15 +12,12 @@ class HasilPanen extends Model
     protected $table = 'hasil_panen';
 
     protected $fillable = [
-        'kolam_id', 'jenis_ikan_id', 'tanggal_panen', 'bobot_kg',
-        'jumlah_ekor', 'harga_per_kg', 'total_pendapatan', 'keterangan',
+        'kolam_id', 'jenis_ikan_id', 'tanggal_panen', 'total_panen_kg', 'keterangan',
     ];
 
     protected $casts = [
         'tanggal_panen'   => 'date',
-        'bobot_kg'        => 'float',
-        'harga_per_kg'    => 'float',
-        'total_pendapatan'=> 'float',
+        'total_panen_kg'  => 'float',
     ];
 
     public function kolam()

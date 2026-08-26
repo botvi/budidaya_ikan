@@ -13,10 +13,7 @@ return new class extends Migration
             $table->foreignId('kolam_id')->constrained('kolam')->onDelete('cascade');
             $table->foreignId('jenis_ikan_id')->constrained('jenis_ikan')->onDelete('cascade');
             $table->date('tanggal_panen');
-            $table->decimal('bobot_kg', 10, 2)->default(0)->comment('Bobot total panen dalam kg');
-            $table->integer('jumlah_ekor')->default(0);
-            $table->decimal('harga_per_kg', 12, 2)->default(0);
-            $table->decimal('total_pendapatan', 15, 2)->default(0);
+            $table->decimal('total_panen_kg', 10, 2)->default(0);
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });

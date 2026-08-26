@@ -47,12 +47,7 @@ class Kolam extends Model
 
     public function getTotalPanenKgAttribute()
     {
-        return $this->hasilPanen()->sum('bobot_kg');
-    }
-
-    public function getTotalPendapatanAttribute()
-    {
-        return $this->hasilPanen()->sum('total_pendapatan');
+        return $this->hasilPanen()->sum('total_panen_kg');
     }
 
     public function getStatusLabelAttribute()

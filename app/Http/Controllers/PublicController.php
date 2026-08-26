@@ -15,7 +15,7 @@ class PublicController extends Controller
         $totalPembudidaya = Pembudidaya::where('status', 'aktif')->count();
         $totalKolam       = Kolam::where('status_kolam', 'aktif')->count();
         $totalJenisIkan   = JenisIkan::where('status', 'aktif')->count();
-        $totalPanenKg     = HasilPanen::sum('bobot_kg');
+        $totalPanenKg     = HasilPanen::sum('total_panen_kg');
         $recentPanen      = HasilPanen::with(['kolam.pembudidaya', 'jenisIkan'])->latest('tanggal_panen')->take(4)->get();
         $topPembudidaya   = Pembudidaya::withCount('kolam')->where('status', 'aktif')->orderByDesc('kolam_count')->take(4)->get();
 
@@ -59,8 +59,7 @@ class PublicController extends Controller
 
         $features = $kolam->map(function ($k) {
             $jenisIkanNames = $k->jenisIkan->pluck('nama_ikan')->join(', ');
-            $totalPanen     = $k->hasilPanen->sum('bobot_kg');
-            $totalPendapatan = $k->hasilPanen->sum('total_pendapatan');
+            $totalPanen     = $k->hasilPanen->sum('total_panen_kg');
 
             $statusColor = match($k->status_kolam) {
                 'aktif'       => '#22c55e',
@@ -89,7 +88,6 @@ class PublicController extends Controller
                     'pembudidaya_hp' => $k->pembudidaya?->no_hp,
                     'jenis_ikan'     => $jenisIkanNames ?: 'Belum ada',
                     'total_panen_kg' => $totalPanen,
-                    'total_pendapatan'=> $totalPendapatan,
                     'detail_url'     => route('public.kolam.show', $k->id),
                     'foto_kolam'     => $k->foto_kolam ? asset($k->foto_kolam) : null,
                     'polygon'        => $k->geometry, // GeoJSON polygon batas kolam

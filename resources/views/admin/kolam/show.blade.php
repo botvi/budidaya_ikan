@@ -76,16 +76,10 @@
 
  <!-- Stats -->
  <div class="row g-3 mt-1">
- <div class="col-6">
+ <div class="col-12">
  <div class="card" style="border-radius:14px;border:none;background:linear-gradient(135deg,#d1fae5,#a7f3d0);text-align:center;padding:14px;">
  <div style="font-size:1.6em;font-weight:800;color:#15803d;">{{ number_format($kolam->total_panen_kg, 0) }}</div>
  <div style="font-size:.76em;color:#065f46;">kg Total Panen</div>
- </div>
- </div>
- <div class="col-6">
- <div class="card" style="border-radius:14px;border:none;background:linear-gradient(135deg,#fef3c7,#fde68a);text-align:center;padding:14px;">
- <div style="font-size:1em;font-weight:800;color:#b45309;">{{ 'Rp '.number_format($kolam->total_pendapatan, 0,',','.') }}</div>
- <div style="font-size:.76em;color:#78350f;">Total Pendapatan</div>
  </div>
  </div>
  </div>
@@ -125,11 +119,8 @@
  <div style="background:#fffbeb;border-radius:12px;padding:12px;margin-bottom:8px;display:flex;gap:12px;align-items:center;">
  <div style="width:36px;height:36px;background:#fde68a;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1em;flex-shrink:0;"></div>
  <div style="flex:1;">
- <div style="font-weight:600;color:#1a1a2e;">{{ $hp->jenisIkan->nama_ikan ?? '-' }} — {{ number_format($hp->bobot_kg) }} kg</div>
- <div style="font-size:.78em;color:#6b7280;">{{ $hp->tanggal_panen->format('d M Y') }} • {{ number_format($hp->jumlah_ekor) }} ekor</div>
- </div>
- <div style="text-align:right;">
- <div style="font-weight:700;color:#b45309;font-size:.88em;">Rp {{ number_format($hp->total_pendapatan, 0, ',', '.') }}</div>
+ <div style="font-weight:600;color:#1a1a2e;">{{ $hp->jenisIkan->nama_ikan ?? '-' }} — {{ number_format($hp->total_panen_kg) }} kg</div>
+ <div style="font-size:.78em;color:#6b7280;">{{ $hp->tanggal_panen->format('d M Y') }}</div>
  </div>
  </div>
  @empty
